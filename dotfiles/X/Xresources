@@ -1,0 +1,57 @@
+! Used to set configuration parameters for X client applications.
+
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+Xft.autohint:   false
+
+! Fix backspace in ssh sessions
+*VT100.Translations: #override \
+    <Key>BackSpace: string(0x7F)\n\
+    <Key>Delete:    string("\033[3~")\n\
+    <Key>Home:      string("\033[1~")\n\
+    <Key>End:       string("\033[4~")
+*ttyModes: erase ^?
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!! xterm
+
+xterm*utf8: 1
+
+xterm*renderFont:   true
+xterm*faceName:     Droid Sans Mono Slashed
+xterm*faceSize:     10
+
+xterm*termName:         xterm-256color
+XTerm*allowBoldFonts:   false
+XTerm*reverseVideo:     on
+
+xterm*metaSendsEscape:  true
+
+xterm*saveLines:    8192
+
+xterm*jumpScroll:       true
+xterm*multiScroll:      true
+xterm*fastScroll:       true
+xterm*alternateScroll:  true
+
+! Use both PRIMARY and CLIPBOARD
+xterm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
+
+xterm*bellIsUrgent: true
+
+xterm*borderWidth: 0
+
+! Widen line spaces (range is 0.9 - 1.5)
+xterm*scaleHeight: 1.01
+
+! Easier path selection (links and filesystem)
+xterm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+
+xterm*pointerColor:             black
+xterm*pointerColorBackground:   white
+xterm*cursorColor:              white
+xterm*cursorBlink:              true
+
