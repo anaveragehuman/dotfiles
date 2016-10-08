@@ -1,10 +1,19 @@
 #!/bin/bash
 # File: ~/.functions
 
-
 # Start KDE Connect if it exists so that we can connect.
 if hash kdeconnect-cli 2>/dev/null; then
     kdeconnect-cli --refresh
+fi
+
+# If tmux exists and we are not in a TTY, attach session or create a new one.
+if hash tmux &> /dev/null && [[ -z "$TMUX" ]] && tty | fgrep "pts" &> /dev/null; then
+    ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
+    if [[ -z "$ID" ]]; then
+        exec tmux
+    else
+        tmux attach-session -t "$ID"
+    fi
 fi
 
 
