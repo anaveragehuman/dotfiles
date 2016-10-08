@@ -12,8 +12,8 @@
     ~/.exports: dotfiles/shell/exports
     ~/.functions: dotfiles/shell/functions
 
-    # ~/.screenrc: dotfiles/shell/screenrc
-    ~/.tmux.conf: dotfiles/shell/tmux.conf
+    # ~/.screenrc: dotfiles/console/screenrc
+    ~/.tmux.conf: dotfiles/console/tmux.conf
 
     ~/.distro-specific:
       path: dotfiles/shell/distro-specific
