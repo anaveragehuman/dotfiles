@@ -1,0 +1,42 @@
+---
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.aliases: dotfiles/shell/aliases
+    ~/.bashrc: dotfiles/shell/bashrc
+    ~/.exports: dotfiles/shell/exports
+    ~/.functions: dotfiles/shell/functions
+
+    # ~/.screenrc: dotfiles/shell/screenrc
+    ~/.tmux.conf: dotfiles/shell/tmux.conf
+
+    ~/.distro-specific:
+      path: dotfiles/shell/distro-specific
+
+    ~/.conkyrc: dotfiles/X/conkyrc
+    ~/.xinitrc: dotfiles/X/xinitrc
+    ~/.Xresources: dotfiles/X/Xresources
+    ~/.config/awesome: dotfiles/X/awesome
+
+    ~/.config/mpv:
+      path: dotfiles/X/mpv
+
+    ~/.vim:
+      path: dotfiles/vim
+
+    ~/.config/nvim:
+      path: dotfiles/vim
+
+    ~/.vim/vimrc:
+      path: dotfiles/vim/init.vim
+
+    ~/.irssi:
+      path: dotfiles/console/irssi
+
+- shell:
+    - ["git submodule update --init --recursive", "Installing submodules"]
