@@ -1,0 +1,40 @@
+#!/bin/bash
+# File: ~/.functions
+
+
+# Start KDE Connect if it exists so that we can connect.
+if hash kdeconnect-cli 2>/dev/null; then
+    kdeconnect-cli --refresh
+fi
+
+
+cd() {
+    if [ $# -eq 0 ]; then
+        DIR=${HOME}
+    else
+        DIR=$1
+    fi
+
+    builtin pushd "${DIR}" > /dev/null
+}
+
+pb() {
+    curl -F "c=@${1:--}" https://ptpb.pw/
+}
+
+secure_delete() {
+    for file in "$@"; do
+        shred --random-source=/dev/random --remove=wipesync --zero "$file"
+        sync
+    done
+}
+
+ftext() {
+    grep -iIHrn --color=always "$1" . | less -r
+}
+
+
+weather() {
+    curl -sS http://wttr.in/"$1" | head -n -2
+}
+

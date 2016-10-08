@@ -1,0 +1,85 @@
+#!/bin/bash
+# This file is sourced by all *interactive* bash shells on most distributions on startup,
+# including some apparently interactive shells such as scp and rcp that can't tolerate any output.
+
+
+# Test for an interactive shell.
+# There is no need to set anything past this point for scp and rcp,
+# and it's important to refrain from outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+    # Shell is non-interactive.  Be done now!
+    return
+fi
+
+
+# Use bash completion if available
+[[ -f /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
+[[ -e /etc/bash/bashrc.d/bash_completion.sh ]] && source /etc/bash/bashrc.d/bash_completion.sh
+
+
+for file in ~/.{aliases,exports,functions}; do
+    if [ -r "$file" ] && [ -f "$file" ]; then
+        source "$file";
+    fi
+done
+
+shopt -s autocd                                 # Name of directory executed as if it was argument to `cd`
+shopt -s cdable_vars                            # `cd` into values of variables
+shopt -s cdspell                                # Check and correct slight spelling errors
+shopt -s checkjobs                              # List status of jobs before exiting
+shopt -s checkwinsize                           # Check the window size after every command
+shopt -s cmdhist                                # Save all lines of multi-line command to same history entry
+shopt -s dirspell                               # Check and correct slight spelling errors
+shopt -s dotglob                                # Include files starting with `.` in pathname expansion
+shopt -s extglob                                # Extended pattern matching features
+shopt -s globstar                               # `**` matches all files and directories/subdirectories
+shopt -s histappend                             # Append to history file instead of overwriting
+shopt -s no_empty_cmd_completion                # Do not search for completions if line is empty
+
+
+bind "TAB: menu-complete"
+bind 'set show-all-if-ambiguous on'
+bind "set menu-complete-display-prefix on"
+bind "set completion-ignore-case on"
+
+export HISTCONTROL="$HISTCONTROL erasedups:ignoreboth"
+export HISTIGNORE="$HISTIGNORE ?:??"
+
+
+# Unbind some keys
+stty stop undef
+stty start undef
+stty -ixon
+
+# Show only commands beginning with current input
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+# Make a nice prompt
+PROMPT_COMMAND=_prompt
+_prompt() {
+    local EXIT="$?"
+    #local BLACK="$(tput setaf 0)"
+    local RED="$(tput setaf 1)"
+    local GREEN="$(tput setaf 2)"
+    #local YELLOW="$(tput setaf 3)"
+    local BLUE="$(tput setaf 4)"
+    #local MAGENTA="$(tput setaf 5)"
+    #local CYAN="$(tput setaf 6)"
+    #local WHITE="$(tput setaf 7)"
+    local RESET="$(tput sgr0)"
+    PS1="$(tput bold)"
+
+    if [ $EXIT != 0 ]; then
+        PS1+="${RED}$EXIT "
+    fi
+
+    if [ "$(id -u)" == 0 ]; then
+        PS1+="${RED}\h "
+    else
+        PS1+="${BLUE}\u "
+    fi
+
+    PS1+="${GREEN}\W${RESET} \$ "
+}
+

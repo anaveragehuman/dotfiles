@@ -1,0 +1,18 @@
+#!/bin/bash
+# File: ~/.aliases
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+alias genpasswd='cat /dev/random | tr -dc "a-zA-Z0-9-_!@#$%^&*()_+{}|:<>?=" | fold -w 20 | head -n 1'
+
+alias cp='rsync -aP'
+alias mkdir='mkdir -p'
+alias ping='ping -c 10'
+
+alias f="find . | grep "
+alias h="history | grep "
+alias p="ps aux | grep "
+
