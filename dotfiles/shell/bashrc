@@ -2,10 +2,7 @@
 # This file is sourced by all *interactive* bash shells on most distributions on startup,
 # including some apparently interactive shells such as scp and rcp that can't tolerate any output.
 
-
 # Test for an interactive shell.
-# There is no need to set anything past this point for scp and rcp,
-# and it's important to refrain from outputting anything in those cases.
 if [[ $- != *i* ]] ; then
     # Shell is non-interactive.  Be done now!
     return
@@ -55,31 +52,47 @@ stty -ixon
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# Make a nice prompt
+# {{{ Prompt
 PROMPT_COMMAND=_prompt
 _prompt() {
     local EXIT="$?"
-    #local BLACK="$(tput setaf 0)"
     local RED="$(tput setaf 1)"
     local GREEN="$(tput setaf 2)"
     #local YELLOW="$(tput setaf 3)"
     local BLUE="$(tput setaf 4)"
-    #local MAGENTA="$(tput setaf 5)"
-    #local CYAN="$(tput setaf 6)"
-    #local WHITE="$(tput setaf 7)"
+    local MAGENTA="$(tput setaf 5)"
+    local CYAN="$(tput setaf 6)"
     local RESET="$(tput sgr0)"
     PS1="$(tput bold)"
 
-    if [ $EXIT != 0 ]; then
+    # Show exit code if not 0
+    if [[ $EXIT != 0 ]]; then
         PS1+="${RED}$EXIT "
     fi
 
-    if [ "$(id -u)" == 0 ]; then
+    # Show hostname if root, show hostname and username if ssh'd in.
+    if [[ "$(id -u)" == 0 ]]; then
         PS1+="${RED}\h "
-    else
-        PS1+="${BLUE}\u "
+    elif [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        PS1+="${BLUE}\h \u "
     fi
 
+    # Show git branch and dirtiness if we are on one
+    if git branch &> /dev/null; then
+        local ref=$(git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///')
+        local dirty=$([[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*")
+        PS1+="${CYAN}($ref$dirty) "
+    fi
+
+    # Show virtualenv info if we are in one
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        local virt=$(basename "$VIRTUAL_ENV")
+        PS1+="${MAGENTA}[$virt] "
+    fi
+
+    # Current working directory
     PS1+="${GREEN}\W${RESET} \$ "
 }
+# }}}
 
+# vim:foldmethod=marker
