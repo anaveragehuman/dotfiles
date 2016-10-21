@@ -56,14 +56,14 @@ bind '"\e[B": history-search-forward'
 PROMPT_COMMAND=_prompt
 _prompt() {
     local EXIT="$?"
-    local RED="$(tput setaf 1)"
-    local GREEN="$(tput setaf 2)"
-    #local YELLOW="$(tput setaf 3)"
-    local BLUE="$(tput setaf 4)"
-    local MAGENTA="$(tput setaf 5)"
-    local CYAN="$(tput setaf 6)"
-    local RESET="$(tput sgr0)"
-    PS1="$(tput bold)"
+    local RED="\[$(tput setaf 1)\]"
+    local GREEN="\[$(tput setaf 2)\]"
+    #local YELLOW="\[$(tput setaf 3)\]"
+    local BLUE="\[$(tput setaf 4)\]"
+    local MAGENTA="\[$(tput setaf 5)\]"
+    local CYAN="\[$(tput setaf 6)\]"
+    local RESET="\[$(tput sgr0)\]"
+    PS1="\[$(tput bold)\]"
 
     # Show exit code if not 0
     if [[ $EXIT != 0 ]]; then
