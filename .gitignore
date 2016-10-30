@@ -1,10 +1,12 @@
-dotfiles/vim/.netrwhist
 dotfiles/vim/.init.vim-rplugin~
-dotfiles/vim/autoload/*
-dotfiles/vim/local/*
-dotfiles/vim/plugged/*
-dotfiles/vim/tmp/*
-dotfiles/vim/undo/*
+dotfiles/vim/.netrwhist
+dotfiles/vim/_backup
+dotfiles/vim/_swap
+dotfiles/vim/_undo
+dotfiles/vim/autoload
+dotfiles/vim/local
+dotfiles/vim/plugged
+dotfiles/vim/spellfile.add*
 dotfiles/vim/vimrc
 
 dotfiles/X/mpv/watch_later/*
