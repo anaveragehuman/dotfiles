@@ -1,73 +1,72 @@
--- Simple Conky Configuration
-
 conky.config = {
     alignment="top_right",
-    double_buffer=true,
-    gap_x=10,
-    gap_y=5,
-    override_utf8_locale=true,
-    update_interval=1.0,
     background=true,
+    double_buffer=true,
+    font="Droid Sans Mono Slashed:size=9",
+    gap_y=25,
+    maximum_width=300,
+    override_utf8_locale=true,
     own_window=true,
-    own_window_transparent=true,
     own_window_argb_visual=true,
-    own_window_type="override",
+    own_window_argb_value=200,
     own_window_class="conky",
     own_window_hints="undecorated,below,sticky,skip_taskbar,skip_pager",
-    maximum_width=250,
+    own_window_type="override",
+    update_interval=1.0,
     use_xft=true,
-    xftalpha=0.5,
-    font="Droid Sans:style=bold:size=10"
+    xftalpha=0.1
 }
 
 conky.text = [[
+${font Droid Sans Mono Slashed:style=Bold:pixelsize=15}SYSTEM ${hr 1}${font}
 
-    ${font Droid Sans:style=bold:size=16}${color #DDDAEC}${alignc} Gentoo Linux ${color #FFFFFF}${font Droid Sans:style=bold:size=11}
-Kernel: ${alignr}$kernel
-Uptime: ${alignr}$uptime${font}
+USER: ${alignr}${exec whoami}
+HOSTNAME: ${alignr}${nodename}
+KERNEL: ${alignr}${sysname} ${kernel}
+UPTIME: ${color #39ffff}${alignr}${uptime}${color}
+LOAD: ${color #39ff14}${alignr}${loadavg}${color}
 
-CPU0 ${alignr}${cpu cpu0}%
-${cpugraph cpu0 14, 250}
-CPU1 ${alignr}${cpu cpu1}%
-${cpugraph cpu1 14, 250}
-CPU2 ${alignr}${cpu cpu2}%
-${cpugraph cpu2 14, 250}
-CPU3 ${alignr}${cpu cpu3}%
-${cpugraph cpu3 14, 250}
+${font Droid Sans Mono Slashed:style=Bold:pixelsize=15}CPU ${hr 1}${font}
 
-${color #ddaa00}${top name 1}${alignr}${top cpu 1}%${color }
+${exec cat /proc/cpuinfo | grep -Po 'model\s+name\s+:\s+\K.*?GHz' | head -1}
+
+USAGE: ${color #39ff14}${alignr}${cpu cpu0}%
+${color #ffff00}${cpugraph 25}
+
+${color #ff0000}${top name 1}${alignr}${top cpu 1}%${color}
 ${top name 2}${alignr}${top cpu 2}%
 ${top name 3}${alignr}${top cpu 3}%
 ${top name 4}${alignr}${top cpu 4}%
 ${top name 5}${alignr}${top cpu 5}%
-${font Droid Sans:size=16}${color #DDDAEC}${hr}${font}${color}
 
-RAM ${alignr}$mem/$memmax
-${membar 6, 250}
+${font Droid Sans Mono Slashed:style=Bold:pixelsize=15}MEMORY ${hr 1} ${font}
 
-${color #ddaa00}${top_mem name 1}${alignr}${top_mem mem 1}%${color }
+USAGE: ${alignr}${mem} - ${color #39ff14}${memperc}%${color}
+${color #ffff00}${membar 6}
+
+${color #ff0000}${top_mem name 1}${alignr}${top_mem mem 1}%${color}
 ${top_mem name 2}${alignr}${top_mem mem 2}%
 ${top_mem name 3}${alignr}${top_mem mem 3}%
 ${top_mem name 4}${alignr}${top_mem mem 4}%
 ${top_mem name 5}${alignr}${top_mem mem 5}%
-${font Droid Sans:size=16}${color #DDDAEC}${hr}${font}${color}
+
+${font Droid Sans Mono Slashed:style=Bold:pixelsize=15}DISK ${hr 1}${font}
+READ: ${color #39ff14}${diskio_read /dev/sda} ${alignr}${color}WRITE: ${color #39ff14}${diskio_write /dev/sda}${color}
 
 / ${alignr}${fs_used /} | ${fs_free /}
-${fs_bar 6, 250 /}
+${color #ffff00}${fs_bar 4 /}${color}
 /home ${alignr}${fs_used /home} | ${fs_free /home}
-${fs_bar 6, 250 /home}
+${color #ffff00}${fs_bar 4 /home}${color}
 /mnt/Data ${alignr}${fs_used /mnt/Data} | ${fs_free /mnt/Data}
-${fs_bar 6, 250 /mnt/Data}
-/mnt/CC ${alignr}${fs_used /mnt/CC} | ${fs_free /mnt/CC}
-${fs_bar 6, 250 /mnt/CC}
-${font Droid Sans:size=16}${color #DDDAEC}${hr}${font}${color}
+${color #ffff00}${fs_bar 4 /mnt/Data}
 
-IP (Lan): $alignr${addr wlp1s0}
-IP (Public): $alignr${execi 600 curl --silent http://canihazip.com/s}
-Total Down $alignr${totaldown wlp1s0}
-Total Up   $alignr${totalup wlp1s0}
+${font Droid Sans Mono Slashed:style=Bold:pixelsize=15}NETWORK ${hr 1}${font}
 
-Download ${alignr}${downspeed wlp1s0}/s
-Upload ${alignr}${upspeed wlp1s0}/s
+WIRELESS DOWN: ${downspeed wlp1s0}${alignr}UP: ${upspeed wlp1s0}
+ETHERNET DOWN: ${downspeed enp2s0}${alignr}UP: ${upspeed enp2s0}
 
+PUBLIC IP: ${alignr}${execi 600 curl --silent http://canihazip.com/s}
+LAN IPv4 (E): ${alignr}${addr enp2s0}
+LAN IPv4 (W): ${alignr}${addr wlp1s0}
 ]]
+
