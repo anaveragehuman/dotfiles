@@ -10,6 +10,8 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+-- Switcher preview
+local switcher = require("awesome-switcher-preview")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to another config.
@@ -42,7 +44,7 @@ terminal = "xterm"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
--- Usually, Mod4 is the key with a logo between Control and Alt.
+-- Usually, Mod4 is the super key between Control and Alt.
 -- To change it, use xmodmap or other tools to remap Mod4 to another key.
 -- You can use another modifier like Mod1, but it may cause undesired effects.
 modkey = "Mod4"
@@ -50,17 +52,10 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts = {
     awful.layout.suit.max,
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    awful.layout.suit.floating,
+    awful.layout.suit.max.fullscreen
 }
 -- }}}
 
@@ -72,7 +67,7 @@ if beautiful.wallpaper then
 end
 
 wp_timeout = 900
-wp_path = "/mnt/Data/sync/GDrive/Computers/Desktop Wallpapers/"
+wp_path = "/mnt/Data/sync/wallpapers/"
 wp_timer = timer { timeout = wp_timeout }
 wp_timer:connect_signal("timeout", function()
     os.execute('/usr/bin/feh --randomize --recursive --bg-max "'..wp_path..'"')
@@ -86,14 +81,9 @@ wp_timer:start()
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {
-    names =  { "main", "www", "terminal", "office", "music", "games", "7", "8", "9" },
-    layout = { layouts[2], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
-}
-
+tags = { }
 for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag(tags.names, s, tags.layout)
+    tags[s] = awful.tag({"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"}, s, layouts[1])
 end
 -- }}}
 
@@ -125,29 +115,17 @@ myawesomemenu = {
     { "Quit", awesome.quit },
 }
 
-appsmenu = {
-    { "Thunar", "thunar" },
-    { "Firefox", "firefox" },
-    { "LibreOffice Writer", "libreoffice --writer" },
-}
-
-gamesmenu = {
-    { "Steam", "env LD_PRELOAD='/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so' /usr/bin/steam" },
-}
-
 sessionmenu = {
-            { "Lock", "physlock -ms" },
-            { "Reboot", "sudo shutdown -r now" },
-            { "Power Off", "sudo shutdown -h now" },
+    { "Lock", "physlock -ms" },
+    { "Reboot", "sudo shutdown -r now" },
+    { "Power Off", "sudo shutdown -h now" },
 }
+
 mymainmenu = awful.menu(
     {
         items = {
             { "awesome", myawesomemenu, beautiful.awesome_icon },
-            { "Apps", appsmenu },
-            -- { "Games", gamesmenu },
             { "Session", sessionmenu },
-            { "Terminal", terminal },
     }})
 
 mylauncher = awful.widget.launcher(
@@ -293,12 +271,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    awful.key({ modkey,           }, "Tab", function ()
-        awful.client.focus.history.previous()
-        if client.focus then
-            client.focus:raise()
-        end
-    end),
+    awful.key({ "Mod1",           }, "Tab", function () switcher.switch( 1, "Alt_L", "Tab", "ISO_Left_Tab") end),
+    awful.key({ "Mod1", "Shift"   }, "Tab", function () switcher.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab") end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
@@ -319,7 +293,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "r", function () awful.util.spawn("rofi -modi run -show run -fuzzy -regex") end),
     awful.key({ modkey }, "p", function () awful.util.spawn("rofi -modi drun -show drun -fuzzy -regex") end),
 
-    awful.key({ modkey }, "l", function () awful.util.spawn("physlock -ms") end),
+    awful.key({ "Control", "Mod1" }, "l", function () awful.util.spawn("physlock -ms") end),
     awful.key({ modkey }, "x", function ()
         awful.prompt.run(
             { prompt = "Run Lua code: " },
@@ -501,6 +475,8 @@ awful.rules.rules = {
         end
     end),
     client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+    -- }}}
 }
 -- }}}
 
+-- vim: foldmethod=marker foldlevel=0
