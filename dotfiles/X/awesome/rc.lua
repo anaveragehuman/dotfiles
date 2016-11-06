@@ -83,7 +83,7 @@ wp_timer:start()
 -- Define a tag table which hold all screen tags.
 tags = { }
 for s = 1, screen.count() do
-    tags[s] = awful.tag({"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"}, s, layouts[1])
+    tags[s] = awful.tag({"1", "2", "3", "4", "5"}, s, layouts[1])
 end
 -- }}}
 
@@ -148,7 +148,7 @@ batterywidgettimer:connect_signal("timeout", function()
     fh = io.popen("acpi | cut -d, -f 2,3 -", "r")
     batterywidget:set_text(" |" .. fh:read("*l") .. " | ")
     fh:close()
-end )
+end)
 batterywidgettimer:start()
 
 -- Create a wibox for each screen and add it
