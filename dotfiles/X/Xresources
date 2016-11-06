@@ -15,13 +15,11 @@ Xft.autohint:   false
 *ttyModes: erase ^?
 
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!! xterm
-
+! {{{ Xterm
 xterm*utf8: 1
 
 xterm*renderFont:   true
-xterm*faceName:     Droid Sans Mono Slashed
+xterm*faceName:     Liberation Mono
 xterm*faceSize:     10
 
 xterm*termName:         xterm-256color
@@ -54,4 +52,10 @@ xterm*pointerColor:             black
 xterm*pointerColorBackground:   white
 xterm*cursorColor:              white
 xterm*cursorBlink:              true
+! }}}
 
+! {{{ Emacs
+Emacs.font: Liberation Mono-10
+! }}}
+
+! vim: foldmethod=marker foldlevel=0
