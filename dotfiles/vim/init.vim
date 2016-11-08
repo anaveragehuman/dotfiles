@@ -21,6 +21,7 @@ call plug#begin()
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 Plug 'kshenoy/vim-signature'
+Plug 'justinmk/vim-sneak'
 
 Plug 'ntpeters/vim-better-whitespace'
 if has("autocmd")
@@ -221,6 +222,9 @@ inoremap (<cr> (<cr>)<c-o>O
 nnoremap <CR> :
 
 cmap w!! w !sudo tee > /dev/null %
+
+" Very magic mode, global replace, ask for confirmation
+nnoremap <leader>/ :%s/\v/gc<Left><Left><Left>
 
 if has("nvim")
     highlight TermCursor ctermfg=green guifg=green

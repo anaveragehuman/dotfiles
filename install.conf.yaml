@@ -40,3 +40,4 @@
 
 - shell:
     - ["git submodule update --init --recursive", "Installing submodules"]
+    - ["mkdir -p ~/.vim/{autoload,_backup,_swap,_undo}"]
