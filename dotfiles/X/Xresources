@@ -45,11 +45,12 @@ xterm*faceName:     Liberation Mono
 xterm*faceSize:     10
 
 xterm*termName:         xterm-256color
-XTerm*allowBoldFonts:   false
+xterm*allowBoldFonts:   true
+xterm*forceBoxChars:    true
 
 xterm*metaSendsEscape:  true
 
-xterm*saveLines:    8192
+xterm*saveLines:        8192
 
 xterm*jumpScroll:       true
 xterm*multiScroll:      true
@@ -68,6 +69,8 @@ xterm*scaleHeight: 1.01
 
 ! Easier path selection (links and filesystem)
 xterm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+
+xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
 
 xterm*pointerColor:             black
 xterm*pointerColorBackground:   white
