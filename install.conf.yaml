@@ -40,4 +40,4 @@
 
 - shell:
     - ["git submodule update --init --recursive", "Installing submodules"]
-    - ["mkdir -p ~/.vim/{autoload,_backup,_swap,_undo}"]
+    - ['for i in {autoload,_backup,_swap,_undo}; do mkdir -p ~/.vim/"$i"; done', "Creating vim folders"]
