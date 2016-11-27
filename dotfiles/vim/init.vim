@@ -11,6 +11,9 @@ if has("vim")
     set ttyfast
 endif
 
+let g:python3_host_prog = "/usr/bin/python3"
+let g:python_host_prog = "/usr/bin/python2"
+
 " {{{ Plugins
 " vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
@@ -174,9 +177,9 @@ if has("autocmd")
     autocmd FocusGained,BufEnter * :silent! !
 
     " Convert spaces to tabs when reading file, tabs to spaces before writing, spaces back to tabs after writing file
-    autocmd BufReadPost * set noexpandtab | retab! 4
-    autocmd BufWritePre * set expandtab | retab! 4
-    autocmd BufWritePost * set noexpandtab | retab! 4
+    autocmd BufReadPost  * silent! undojoin | set noexpandtab | silent! retab! 4
+    autocmd BufWritePre  * silent! undojoin | set expandtab   | silent! retab! 4
+    autocmd BufWritePost * silent! undojoin | set noexpandtab | silent! retab! 4
 
     autocmd FileType tex,txt setlocal spell spelllang=en_us
 
