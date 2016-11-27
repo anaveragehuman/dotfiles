@@ -2,7 +2,7 @@ conky.config = {
     alignment="top_right",
     background=true,
     double_buffer=true,
-    font="Liberation Mono:size=9:style=Bold",
+    font="Liberation Mono:size=8:style=Bold",
     gap_y=22,
     maximum_width=300,
     override_utf8_locale=true,

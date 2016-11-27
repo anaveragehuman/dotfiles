@@ -1,10 +1,12 @@
 ! Used to set configuration parameters for X client applications.
 
 Xft.antialias:  true
-Xft.rgba:       rgb
+Xft.autohint:   false
+Xft.dpi:        112
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
-Xft.autohint:   false
+Xft.lcdfilter:  lcddefault
+Xft.rgba:       rgb
 
 ! Fix backspace in ssh sessions
 *VT100.Translations: #override \
@@ -42,7 +44,7 @@ xterm*utf8: 1
 
 xterm*renderFont:   true
 xterm*faceName:     Liberation Mono
-xterm*faceSize:     10
+xterm*faceSize:     9
 
 xterm*termName:         xterm-256color
 xterm*allowBoldFonts:   true
