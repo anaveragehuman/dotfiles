@@ -70,7 +70,7 @@ wp_timeout = 900
 wp_path = "/mnt/Data/sync/wallpapers/"
 wp_timer = timer { timeout = wp_timeout }
 wp_timer:connect_signal("timeout", function()
-    os.execute('/usr/bin/feh --randomize --recursive --bg-max "'..wp_path..'"')
+    os.execute('/usr/bin/feh --randomize --bg-max "'..wp_path..'"')
     wp_timer:stop()
     wp_timer.timeout = wp_timeout
     wp_timer:start()
@@ -303,7 +303,7 @@ globalkeys = awful.util.table.join(
             )
     end),
 
-    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ 2>/dev/null'") end)
+    awful.key({ }, "Print", function () awful.util.spawn("xfce4-screenshooter -f") end)
     )
 
 clientkeys = awful.util.table.join(
