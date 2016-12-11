@@ -1,3 +1,6 @@
+dotfiles/X/mpv/watch_later/*
+dotfiles/console/irssi/away.log
+dotfiles/console/irssi/config
 dotfiles/vim/.init.vim-rplugin~
 dotfiles/vim/.netrwhist
 dotfiles/vim/_backup
@@ -8,9 +11,3 @@ dotfiles/vim/local
 dotfiles/vim/plugged
 dotfiles/vim/spellfile.add*
 dotfiles/vim/vimrc
-
-dotfiles/X/mpv/watch_later/*
-
-dotfiles/console/irssi/away.log
-dotfiles/console/irssi/config
-

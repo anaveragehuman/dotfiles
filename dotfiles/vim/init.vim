@@ -26,6 +26,10 @@ Plug 'tpope/vim-surround'
 Plug 'kshenoy/vim-signature'
 Plug 'justinmk/vim-sneak'
 
+Plug 'vim-latex/vim-latex'
+let g:tex_flavor='latex'
+set grepprg=grep\ -nH\ $*
+
 Plug 'ntpeters/vim-better-whitespace'
 if has("autocmd")
     let blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
@@ -34,16 +38,6 @@ endif
 
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
-
-Plug 'reedes/vim-pencil'
-let g:pencil#textwidth = 80
-if has("autocmd")
-    augroup pencil
-        autocmd!
-        autocmd FileType markdown,mkd call pencil#init({'wrap': 'hard'})
-        autocmd FileType tex,text     call pencil#init({'wrap': 'soft'})
-    augroup END
-endif
 
 if has("nvim")
     Plug 'neomake/neomake'
