@@ -80,7 +80,7 @@ _prompt() {
     # Show git branch and dirtiness if we are on one
     if git branch &> /dev/null; then
         local ref=$(git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///')
-        local dirty=$([[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*")
+        local dirty=$([[ $(git status 2> /dev/null | tail -n1) != *"working tree clean"* ]] && echo "*")
         PS1+="${CYAN}($ref$dirty) "
     fi
 
