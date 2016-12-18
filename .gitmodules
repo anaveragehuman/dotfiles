@@ -1,9 +1,9 @@
 [submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot
-[submodule "dotfiles/console/irssi/weed"]
-	path = dotfiles/console/irssi/weed
-	url = https://github.com/ronilaukkarinen/weed
+    path = dotbot
+    url = https://github.com/anishathalye/dotbot
 [submodule "dotfiles/X/awesome/awesome-switcher-preview"]
-	path = dotfiles/X/awesome/awesome-switcher-preview
-	url = https://github.com/berlam/awesome-switcher-preview.git
+    path = dotfiles/X/awesome/awesome-switcher-preview
+    url = https://github.com/berlam/awesome-switcher-preview.git
+[submodule "dotfiles/console/irssi"]
+	path = dotfiles/console/irssi
+	url = git@gitlab.com:AnAverageHuman/irssi-theme.git
