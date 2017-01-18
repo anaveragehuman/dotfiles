@@ -1,12 +1,13 @@
 #!/bin/bash
 # File: ~/.functions
 
-# Start KDE Connect if it exists so that we can connect.
+# {{{ Start KDE Connect if it exists
 if hash kdeconnect-cli 2>/dev/null; then
     kdeconnect-cli --refresh
 fi
+# }}}
 
-# If tmux exists and we are not in a TTY, attach session or create a new one.
+# {{{  Attach tmux session or create a new one if we are not in a TTY
 if hash tmux &> /dev/null && [[ -z "$TMUX" ]] && tty | fgrep "pts" &> /dev/null; then
     ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
     if [[ -z "$ID" ]]; then
@@ -15,27 +16,24 @@ if hash tmux &> /dev/null && [[ -z "$TMUX" ]] && tty | fgrep "pts" &> /dev/null;
         tmux attach-session -t "$ID"
     fi
 fi
+# }}}
 
+a() {
+    "$@"
+    local e=$?
+    [ $e != 0 ] && local urgency='--urgency=critical'
+
+    notify-send $urgency "$*" "Process completed."
+    return $e
+}
 
 cd() {
-    if [ $# -eq 0 ]; then
-        DIR=${HOME}
-    else
-        DIR=$1
-    fi
-
+    [ $# -eq 0 ] && DIR=${HOME} || DIR=$1
     builtin pushd "${DIR}" > /dev/null
 }
 
 pb() {
     curl -F "c=@${1:--}" https://ptpb.pw/
-}
-
-secure_delete() {
-    for file in "$@"; do
-        shred --random-source=/dev/random --remove=wipesync --zero "$file"
-        sync
-    done
 }
 
 ftext() {
@@ -47,8 +45,33 @@ genpasswd() {
     printf "\n"
 }
 
-
 weather() {
     curl -sS http://wttr.in/"$1" | head -n -2
 }
 
+# create and move into directory
+function mkcd {
+    if [ -z "$1" ]; then
+        printf "USAGE: mkcd <directory>"
+    else
+        mkdir -p "$1"
+        cd "$1"
+    fi
+}
+
+# move to directory and list its contents
+function lcd {
+    cd "$1"
+    ls
+}
+
+function shred {
+    if [ $# -gt 0 ]; then
+        find "$@" -type f -print0 \
+            | xargs -0 shred --random-source=/dev/random --remove=wipesync --verbose --zero \
+            && rm -rf "$@"
+        sync
+    fi
+}
+
+# vim:foldmethod=marker:foldlevel=0

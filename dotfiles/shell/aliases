@@ -10,7 +10,3 @@ alias cp='rsync -aP'
 alias mkdir='mkdir -p'
 alias ping='ping -c 10'
 
-alias f="find . | grep "
-alias h="history | grep "
-alias p="ps aux | grep "
-
