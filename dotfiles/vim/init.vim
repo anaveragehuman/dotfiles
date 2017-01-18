@@ -28,6 +28,7 @@ Plug 'justinmk/vim-sneak'
 
 Plug 'vim-latex/vim-latex'
 let g:tex_flavor='latex'
+let g:Tex_DefaultTargetFormat='pdf'
 set grepprg=grep\ -nH\ $*
 
 Plug 'ntpeters/vim-better-whitespace'
@@ -167,13 +168,20 @@ if has("autocmd")
     " Load indentation rules according to detected filetype.
     filetype plugin indent on
 
-    autocmd FocusLost,WinLeave * :silent! wa
-    autocmd FocusGained,BufEnter * :silent! !
+    autocmd FocusLost,WinLeave   * silent! wa
+    autocmd FocusGained,BufEnter * silent! !
+
+    augroup line_nums
+        autocmd!
+        autocmd InsertEnter * set norelativenumber
+        autocmd InsertLeave * set relativenumber
+    augroup end
 
     " Convert spaces to tabs when reading file, tabs to spaces before writing, spaces back to tabs after writing file
-    autocmd BufReadPost  * silent! undojoin | set noexpandtab | silent! retab! 4
-    autocmd BufWritePre  * silent! undojoin | set expandtab   | silent! retab! 4
-    autocmd BufWritePost * silent! undojoin | set noexpandtab | silent! retab! 4
+    let blacklist=['yaml']
+    autocmd BufReadPost  * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! 4
+    autocmd BufWritePre  * if index(blacklist, &ft) < 0 | silent! undojoin | set expandtab   | silent! retab! 4
+    autocmd BufWritePost * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! 4
 
     autocmd FileType tex,txt setlocal spell spelllang=en_us
 
