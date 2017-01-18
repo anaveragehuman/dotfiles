@@ -55,7 +55,7 @@ bind '"\e[B": history-search-forward'
 # {{{ Prompt
 PROMPT_COMMAND=_prompt
 _prompt() {
-    local EXIT="$?"
+    local EXIT=$?
     local RED="\[$(tput setaf 1)\]"
     local GREEN="\[$(tput setaf 2)\]"
     #local YELLOW="\[$(tput setaf 3)\]"
@@ -80,7 +80,7 @@ _prompt() {
     # Show git branch and dirtiness if we are on one
     if git branch &> /dev/null; then
         local ref=$(git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///')
-        local dirty=$([[ $(git status 2> /dev/null | tail -n1) != *"working tree clean"* ]] && echo "*")
+        local dirty=$([[ $(git status 2> /dev/null | tail -n1) != *"working"*"clean"* ]] && echo "*")
         PS1+="${CYAN}($ref$dirty) "
     fi
 
