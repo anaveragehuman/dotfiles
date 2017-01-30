@@ -25,6 +25,8 @@ nnoremap U :UndotreeToggle<CR>
 if has("nvim")
     Plug 'neomake/neomake'
     autocmd BufWritePost * Neomake
+    let g:neomake_open_list = 2
+    let g:neomake_list_height = 3
 
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
@@ -174,11 +176,9 @@ if has("autocmd")
 
     augroup enter_esc
         autocmd!
-        autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-        autocmd BufReadPost quickfix nnoremap <buffer> <Esc> :q<CR>
-        autocmd CmdWinEnter * nnoremap <buffer> <CR> <CR>
-        autocmd CmdWinEnter * nnoremap <buffer> <Esc> :q<CR>
-        autocmd FileType netrw nnoremap <buffer> <Esc> :e #<CR>
+        autocmd BufReadPost quickfix nnoremap <buffer> <Esc>    :q<CR>
+        autocmd CmdWinEnter *        nnoremap <buffer> <Esc>    :q<CR>
+        autocmd FileType    netrw    nnoremap <buffer> <Esc>    :e #<CR>
     augroup END
 
     augroup fast_esc
@@ -207,6 +207,9 @@ inoremap kj <esc>
 inoremap JK <esc>
 inoremap KJ <esc>
 
+nnoremap j gj
+nnoremap k gk
+
 vnoremap Q gq
 nnoremap Q gqap
 
@@ -214,9 +217,7 @@ inoremap {<cr> {<cr>}<c-o>O
 inoremap [<cr> [<cr>]<c-o>O
 inoremap (<cr> (<cr>)<c-o>O
 
-nnoremap <CR> :
-
-cmap w!! w !sudo tee > /dev/null %
+nnoremap <leader>W :w !sudo tee > /dev/null %<CR><CR>
 
 " Very magic mode, global replace, ask for confirmation
 nnoremap <leader>/ :%s/\v/gc<Left><Left><Left>
@@ -236,11 +237,21 @@ set sps=best,10
 " }}}
 
 " {{{ Colors
-highlight normal        ctermfg=white   ctermbg=black
-highlight nontext       ctermfg=gray    ctermbg=black
+highlight normal                ctermfg=white   ctermbg=black
+highlight nontext               ctermfg=gray    ctermbg=black
 
-highlight whitespace    ctermfg=red     ctermbg=red
+highlight whitespace            ctermfg=red     ctermbg=red
 match whitespace /\s\+$/                " Show trailing whitespace
+
+highlight NeomakeErrorSign      ctermbg=red
+highlight NeomakeWarningSign    ctermbg=magenta
+highlight NeomakeMessageSign    ctermbg=yellow
+highlight NeomakeInfoSign       ctermbg=blue
+
+highlight NeomakeError          ctermbg=red
+highlight NeomakeWarning        ctermbg=magenta
+highlight NeomakeMessage        ctermbg=yellow
+highlight NeomakeInfo           ctermbg=blue
 
 set pumheight=7
 highlight Pmenu      ctermbg=13                 guifg=Black   guibg=#BDDFFF
