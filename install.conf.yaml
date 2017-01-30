@@ -12,7 +12,6 @@
     ~/.exports: dotfiles/shell/exports
     ~/.functions: dotfiles/shell/functions
 
-    # ~/.screenrc: dotfiles/console/screenrc
     ~/.tmux.conf: dotfiles/console/tmux.conf
 
     ~/.distro-specific:
@@ -40,4 +39,4 @@
 
 - shell:
     - ["git submodule update --init --recursive", "Installing submodules"]
-    - ['for i in {autoload,_backup,_swap,_undo}; do mkdir -p ~/.vim/"$i"; done', "Creating vim folders"]
+    - ['bash -c "mkdir -p ~/.vim/{autoload,_backup,_swap,_undo}"']

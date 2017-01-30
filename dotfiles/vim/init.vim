@@ -1,16 +1,5 @@
 " File:     ~/.vim/vimrc
 
-" Theme
-let g:rehash256 = 1
-colorscheme molokai
-set background=dark
-
-if has("vim")
-    set t_Co=256
-    set nocompatible
-    set ttyfast
-endif
-
 let g:python3_host_prog = "/usr/bin/python3"
 let g:python_host_prog = "/usr/bin/python2"
 
@@ -22,20 +11,13 @@ endif
 
 call plug#begin()
 Plug 'sheerun/vim-polyglot'
+Plug 'tomasr/molokai'
 Plug 'tpope/vim-surround'
-Plug 'kshenoy/vim-signature'
-Plug 'justinmk/vim-sneak'
 
 Plug 'vim-latex/vim-latex'
 let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat='pdf'
 set grepprg=grep\ -nH\ $*
-
-Plug 'ntpeters/vim-better-whitespace'
-if has("autocmd")
-    let blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
-    autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
-endif
 
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
@@ -51,30 +33,27 @@ endif
 call plug#end()
 " }}}
 
+"{{{ Theme
+let g:molokai_original = 1
+let g:rehash256 = 1
+colorscheme molokai
+set background=dark
+
+if has("vim")
+    set t_Co=256
+    set nocompatible
+    set ttyfast
+endif
+" }}}
+
 " {{{ Undo, Backups, Swap
 " Persistent undo
 if has("persistent_undo")
-    if has("nvim")
-        set undodir=~/.config/nvim/_undo
-    else
-        set undodir=~/.vim/_undo
-    endif
+    set undodir=~/.vim/_undo
     set undofile
     set backup
-endif
-
-" Backups
-if has("nvim")
-    set backupdir=~/.config/nvim/_backup/,/tmp
-else
-    set backupdir=~/.vim/_backup/,/tmp
-endif
-
-" Swap files
-if has("nvim")
-    set dir=~/.config/nvim/_swap/
-else
-    set dir=~/.vim/_swap/
+    set backupdir=~/.vim/_backup/,/tmp          " Backups
+    set dir=~/.vim/_swap/                       " Swap files
 endif
 
 if has("clipboard")
@@ -109,6 +88,7 @@ set cursorline                  " Highlight the current line
 set autoindent
 set formatoptions=qrn1
 set backspace=indent,eol,start
+set path+=**
 
 set shiftwidth=4
 set shiftround
@@ -155,12 +135,25 @@ set visualbell t_vb=                    " Disable the bell
 set nodigraph                           " Enable input of special characters by combining two characters
 set noerrorbells                        " Disable error bells
 set shortmess=at                        " Abbreviate and truncate messages when necessary
-set matchpairs=(:),[:],{:},<:>          " highlight matching parens:
+set matchpairs=(:),[:],{:},<:>          " Highlight matching parens
 set comments=b:#,:%,fb:-,n:>,n:)
 
 if has("mouse")
     set mouse=a
 endif
+" }}}
+
+" {{{ Functions
+function! StripWhitespace()
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+command! StripWhitespace silent! call StripWhitespace()
 " }}}
 
 " {{{ Autocmd
@@ -170,12 +163,6 @@ if has("autocmd")
 
     autocmd FocusLost,WinLeave   * silent! wa
     autocmd FocusGained,BufEnter * silent! !
-
-    augroup line_nums
-        autocmd!
-        autocmd InsertEnter * set norelativenumber
-        autocmd InsertLeave * set relativenumber
-    augroup end
 
     " Convert spaces to tabs when reading file, tabs to spaces before writing, spaces back to tabs after writing file
     let blacklist=['yaml']
@@ -198,13 +185,16 @@ if has("autocmd")
         autocmd InsertEnter * set timeoutlen=500
         autocmd InsertLeave * set timeoutlen=1000
     augroup END
+
+    let blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+    autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
 endif
 " }}}
 
 " {{{ Statusline
 set statusline=
 set statusline+=%1*%3v          "virtual column number
-set statusline+=\ %<\%F         "full path
+set statusline+=\ %<\%F\        "full path
 set statusline+=%m              "modified flag
 set statusline+=%r              "read only flag
 set statusline+=%=%l            "current line
@@ -230,14 +220,6 @@ cmap w!! w !sudo tee > /dev/null %
 
 " Very magic mode, global replace, ask for confirmation
 nnoremap <leader>/ :%s/\v/gc<Left><Left><Left>
-
-if has("nvim")
-    highlight TermCursor ctermfg=green guifg=green
-    tnoremap <leader><Esc> <C-\><C-n>
-    command! VTerm execute "vsplit" | execute "terminal"
-    command! HTerm execute "split" | execute "terminal"
-    command! TTerm execute "tabedit" | execute "terminal"
-endif
 " }}}
 
 " {{{ Spelling
@@ -254,8 +236,11 @@ set sps=best,10
 " }}}
 
 " {{{ Colors
-hi normal   ctermfg=white   ctermbg=black guifg=white   guibg=black
-hi nontext  ctermfg=green   ctermbg=black guifg=white   guibg=black
+highlight normal        ctermfg=white   ctermbg=black
+highlight nontext       ctermfg=gray    ctermbg=black
+
+highlight whitespace    ctermfg=red     ctermbg=red
+match whitespace /\s\+$/                " Show trailing whitespace
 
 set pumheight=7
 highlight Pmenu      ctermbg=13                 guifg=Black   guibg=#BDDFFF
