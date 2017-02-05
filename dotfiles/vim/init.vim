@@ -139,6 +139,7 @@ set noerrorbells                        " Disable error bells
 set shortmess=at                        " Abbreviate and truncate messages when necessary
 set matchpairs=(:),[:],{:},<:>          " Highlight matching parens
 set comments=b:#,:%,fb:-,n:>,n:)
+set pumheight=7                         " Completion menu
 
 if has("mouse")
     set mouse=a
@@ -237,11 +238,11 @@ set sps=best,10
 " }}}
 
 " {{{ Colors
-highlight normal                ctermfg=white   ctermbg=black
-highlight nontext               ctermfg=gray    ctermbg=black
+highlight normal                ctermbg=black   ctermfg=white
+highlight nontext               ctermbg=black   ctermfg=gray
 
-highlight whitespace            ctermfg=red     ctermbg=red
-match whitespace /\s\+$/                " Show trailing whitespace
+highlight whitespace            ctermbg=red     ctermfg=red
+match whitespace /\s\+$/        " Show trailing whitespace
 
 highlight NeomakeErrorSign      ctermbg=red
 highlight NeomakeWarningSign    ctermbg=magenta
@@ -253,11 +254,8 @@ highlight NeomakeWarning        ctermbg=magenta
 highlight NeomakeMessage        ctermbg=yellow
 highlight NeomakeInfo           ctermbg=blue
 
-set pumheight=7
-highlight Pmenu      ctermbg=13                 guifg=Black   guibg=#BDDFFF
-highlight PmenuSel   ctermbg=7                  guifg=Black   guibg=Orange
-highlight PmenuSbar  ctermbg=7                  guifg=#CCCCCC guibg=#CCCCCC
-highlight PmenuThumb cterm=reverse  gui=reverse guifg=Black   guibg=#AAAAAA
+highlight Pmenu                 ctermbg=white   ctermfg=black
+highlight PmenuSel              ctermbg=green   ctermfg=black
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
