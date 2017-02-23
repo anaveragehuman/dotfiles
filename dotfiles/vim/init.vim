@@ -88,7 +88,7 @@ set updatetime=250
 set showmode
 set cursorline                  " Highlight the current line
 set autoindent
-set formatoptions=qrn1
+set formatoptions=crqn1j
 set backspace=indent,eol,start
 set path+=**
 
@@ -98,13 +98,16 @@ set shiftround
 set linebreak                   " Don't wrap words by default
 set wrap
 set nolist
-set textwidth=0
+set textwidth=80
 set wrapmargin=0
 
 set history=1000
 
-set tabstop=4 softtabstop=4 shiftwidth=4
-set list listchars=tab:»\ ,extends:»
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set list
+set listchars=tab:»\ ,extends:»
 
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.log,.aux,.bbl,.blg,.idx,.ilg,.ind,.out,.pdf
 
@@ -146,7 +149,7 @@ if has("mouse")
 endif
 " }}}
 
-" {{{ Functions
+" {{{ Functions and Commands
 function! StripWhitespace()
     let _s=@/
     let l = line(".")
@@ -164,14 +167,20 @@ if has("autocmd")
     " Load indentation rules according to detected filetype.
     filetype plugin indent on
 
-    autocmd FocusLost,WinLeave   * silent! wa
-    autocmd FocusGained,BufEnter * silent! !
+    augroup autosave
+        autocmd!
+        autocmd FocusLost,WinLeave   * silent! wa
+        autocmd FocusGained,BufEnter * silent! !
+    augroup END
 
     " Convert spaces to tabs when reading file, tabs to spaces before writing, spaces back to tabs after writing file
-    let blacklist=['yaml']
-    autocmd BufReadPost  * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! 4
-    autocmd BufWritePre  * if index(blacklist, &ft) < 0 | silent! undojoin | set expandtab   | silent! retab! 4
-    autocmd BufWritePost * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! 4
+    augroup convert
+        autocmd!
+        let blacklist=['yaml']
+        autocmd BufReadPost  * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! &shiftwidth
+        autocmd BufWritePre  * if index(blacklist, &ft) < 0 | silent! undojoin | set expandtab   | silent! retab! &shiftwidth
+        autocmd BufWritePost * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! &shiftwidth
+    augroup END
 
     autocmd FileType tex,txt setlocal spell spelllang=en_us
 
@@ -183,12 +192,19 @@ if has("autocmd")
     augroup END
 
     augroup fast_esc
+        autocmd!
         autocmd InsertEnter * set timeoutlen=500
         autocmd InsertLeave * set timeoutlen=1000
     augroup END
 
     let blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
     autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
+
+    augroup over_length
+        autocmd!
+        autocmd BufEnter * highlight OverLength ctermbg=52
+        autocmd BufEnter * execute 'match OverLength /\%' . ( &textwidth + 1 ) . 'v.*/'
+    augroup END
 endif
 " }}}
 
