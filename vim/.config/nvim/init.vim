@@ -10,14 +10,16 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 call plug#begin()
-Plug 'sheerun/vim-polyglot'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-surround'
+
+Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['tex']
 
 Plug 'vim-latex/vim-latex'
 let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat='pdf'
-set grepprg=grep\ -nH\ $*
+let g:Tex_MultipleCompileFormats='pdf'
 
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
@@ -103,6 +105,8 @@ set wrapmargin=0
 
 set history=1000
 
+set fillchars=vert:│                " vertical box-drawing character
+
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -149,6 +153,16 @@ if has("mouse")
 endif
 " }}}
 
+" {{{ Search
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+else
+    set grepprg=grep\ -nH\ $*
+endif
+
+nnoremap <leader>K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" }}}
+
 " {{{ Functions and Commands
 function! StripWhitespace()
     let _s=@/
@@ -182,7 +196,7 @@ if has("autocmd")
         autocmd BufWritePost * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! &shiftwidth
     augroup END
 
-    autocmd FileType tex,txt setlocal spell spelllang=en_us
+    autocmd FileType markdown,tex,txt setlocal spell spelllang=en_us
 
     augroup enter_esc
         autocmd!
@@ -204,6 +218,11 @@ if has("autocmd")
         autocmd!
         autocmd BufEnter * highlight OverLength ctermbg=52
         autocmd BufEnter * execute 'match OverLength /\%' . ( &textwidth + 1 ) . 'v.*/'
+
+        " Show trailing whitespace
+        autocmd BufEnter * highlight whitespace ctermbg=red ctermfg=red
+        autocmd BufEnter * 2match whitespace /\s\+$/
+
     augroup END
 endif
 " }}}
@@ -256,9 +275,6 @@ set sps=best,10
 " {{{ Colors
 highlight normal                ctermbg=black   ctermfg=white
 highlight nontext               ctermbg=black   ctermfg=gray
-
-highlight whitespace            ctermbg=red     ctermfg=red
-match whitespace /\s\+$/        " Show trailing whitespace
 
 highlight NeomakeErrorSign      ctermbg=red
 highlight NeomakeWarningSign    ctermbg=magenta
