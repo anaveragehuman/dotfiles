@@ -1,24 +1,7 @@
 #!/bin/bash
 # File: ~/.functions
 
-# {{{ Start KDE Connect if it exists
-if hash kdeconnect-cli 2>/dev/null; then
-    kdeconnect-cli --refresh
-fi
-# }}}
-
-# {{{  Attach tmux session or create a new one if we are not in a TTY
-if hash tmux &> /dev/null && [[ -z "$TMUX" ]] && tty | fgrep "pts" &> /dev/null; then
-    ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
-    if [[ -z "$ID" ]]; then
-        exec tmux
-    else
-        tmux attach-session -t "$ID"
-    fi
-fi
-# }}}
-
-a() {
+function a {
     "$@"
     local e=$?
     [ $e != 0 ] && local urgency='--urgency=critical'
@@ -27,36 +10,32 @@ a() {
     return $e
 }
 
-cd() {
+function cd {
     [ $# -eq 0 ] && DIR=${HOME} || DIR=$1
     builtin pushd "${DIR}" > /dev/null
 }
 
-pb() {
+function pb {
     curl -F "c=@${1:--}" https://ptpb.pw/
 }
 
-ftext() {
+function ftext {
     grep -iIHrn --color=always "$1" . | less -r
 }
 
-genpasswd() {
+function genpasswd {
     tr -dc "a-zA-Z0-9-_!@#$%^&*()_+{}|:<>?=" < /dev/random | head -c "${1:-20}"
     printf "\n"
 }
 
-weather() {
+function weather {
     curl -sS http://wttr.in/"$1" | head -n -2
 }
 
 # create and move into directory
 function mkcd {
-    if [ -z "$1" ]; then
-        printf "USAGE: mkcd <directory>"
-    else
-        mkdir -p "$1"
-        cd "$1"
-    fi
+    mkdir -p "$1"
+    cd "$1"
 }
 
 # move to directory and list its contents
