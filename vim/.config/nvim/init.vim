@@ -6,7 +6,7 @@ let g:python_host_prog = "/usr/bin/python2"
 " {{{ Plugins
 " vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
-    execute '!curl -fsLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+    execute '!curl -fsLo --create-dirs ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
 call plug#begin()
@@ -17,9 +17,10 @@ Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex']
 
 Plug 'vim-latex/vim-latex'
-let g:tex_flavor='latex'
-let g:Tex_DefaultTargetFormat='pdf'
-let g:Tex_MultipleCompileFormats='pdf'
+let g:tex_flavor = 'latex'
+let g:Tex_GotoError = 0
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_CompileRule_pdf = 'latexmk -pdf -logfilewarninglist $*'
 
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
@@ -90,7 +91,7 @@ set updatetime=250
 set showmode
 set cursorline                  " Highlight the current line
 set autoindent
-set formatoptions=crqn1j
+set formatoptions=crqnj
 set backspace=indent,eol,start
 set path+=**
 
@@ -107,8 +108,11 @@ set history=1000
 
 set fillchars=vert:│                " vertical box-drawing character
 
+set expandtab
+set copyindent
+set preserveindent
 set tabstop=4
-set softtabstop=4
+set softtabstop=0
 set shiftwidth=4
 set list
 set listchars=tab:»\ ,extends:»
@@ -187,16 +191,7 @@ if has("autocmd")
         autocmd FocusGained,BufEnter * silent! !
     augroup END
 
-    " Convert spaces to tabs when reading file, tabs to spaces before writing, spaces back to tabs after writing file
-    augroup convert
-        autocmd!
-        let blacklist=['yaml']
-        autocmd BufReadPost  * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! &shiftwidth
-        autocmd BufWritePre  * if index(blacklist, &ft) < 0 | silent! undojoin | set expandtab   | silent! retab! &shiftwidth
-        autocmd BufWritePost * if index(blacklist, &ft) < 0 | silent! undojoin | set noexpandtab | silent! retab! &shiftwidth
-    augroup END
-
-    autocmd FileType markdown,tex,txt setlocal spell spelllang=en_us
+    autocmd FileType gitcommit,markdown,tex,txt setlocal spell spelllang=en_us
 
     augroup enter_esc
         autocmd!
@@ -211,8 +206,14 @@ if has("autocmd")
         autocmd InsertLeave * set timeoutlen=1000
     augroup END
 
+    " Convert tabs to spaces when reading file
+    augroup convert
+        autocmd!
+        autocmd BufReadPost  * if index(blacklist, &ft) < 0 | silent! undojoin | silent! retab! &shiftwidth
+    augroup END
+
     let blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
-    autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
+    autocmd BufWritePre * if index(blacklist, &ft) < 0 | retab! | StripWhitespace
 
     augroup over_length
         autocmd!
@@ -246,7 +247,7 @@ inoremap KJ <esc>
 nnoremap j gj
 nnoremap k gk
 
-vnoremap Q gq
+vnoremap Q gw
 nnoremap Q gqap
 
 inoremap {<cr> {<cr>}<c-o>O
