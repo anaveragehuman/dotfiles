@@ -12,6 +12,7 @@ endif
 call plug#begin()
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-surround'
+Plug 'vim-scripts/Align'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex']
@@ -25,11 +26,13 @@ let g:Tex_CompileRule_pdf = 'latexmk -pdf -logfilewarninglist $*'
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
 
-if has("nvim")
+if has("nvim") || has("python3")
     Plug 'neomake/neomake'
     autocmd BufWritePost * Neomake
     let g:neomake_open_list = 2
     let g:neomake_list_height = 3
+
+    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
@@ -103,6 +106,7 @@ set wrap
 set nolist
 set textwidth=80
 set wrapmargin=0
+set colorcolumn=+1
 
 set history=1000
 
@@ -169,15 +173,20 @@ nnoremap <leader>K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " {{{ Functions and Commands
 function! StripWhitespace()
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
+    let w = winsaveview()
     %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
+    call winrestview(w)
 endfunction
 
 command! StripWhitespace silent! call StripWhitespace()
+
+function! Reindent()
+    let w = winsaveview()
+    normal gg=G
+    call winrestview(w)
+endfunction
+
+nnoremap <leader>= :call Reindent()<CR>
 " }}}
 
 " {{{ Autocmd
@@ -215,15 +224,9 @@ if has("autocmd")
     let blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
     autocmd BufWritePre * if index(blacklist, &ft) < 0 | retab! | StripWhitespace
 
-    augroup over_length
-        autocmd!
-        autocmd BufEnter * highlight OverLength ctermbg=52
-        autocmd BufEnter * execute 'match OverLength /\%' . ( &textwidth + 1 ) . 'v.*/'
-
-        " Show trailing whitespace
-        autocmd BufEnter * highlight whitespace ctermbg=red ctermfg=red
-        autocmd BufEnter * 2match whitespace /\s\+$/
-
+    " Show trailing whitespace
+    augroup whitespace
+        autocmd VimEnter,WinEnter * match whitespace /\s\+$/
     augroup END
 endif
 " }}}
@@ -244,6 +247,11 @@ inoremap kj <esc>
 inoremap JK <esc>
 inoremap KJ <esc>
 
+nnoremap , :
+vnoremap , :
+nnoremap : ,
+vnoremap : ,
+
 nnoremap j gj
 nnoremap k gk
 
@@ -258,6 +266,9 @@ nnoremap <leader>W :w !sudo tee > /dev/null %<CR><CR>
 
 " Very magic mode, global replace, ask for confirmation
 nnoremap <leader>/ :%s/\v/gc<Left><Left><Left>
+
+"Sort selection on a line
+vnoremap <F2> d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
 " }}}
 
 " {{{ Spelling
@@ -276,6 +287,8 @@ set sps=best,10
 " {{{ Colors
 highlight normal                ctermbg=black   ctermfg=white
 highlight nontext               ctermbg=black   ctermfg=gray
+
+highlight whitespace            ctermbg=red     ctermfg=red
 
 highlight NeomakeErrorSign      ctermbg=red
 highlight NeomakeWarningSign    ctermbg=magenta
