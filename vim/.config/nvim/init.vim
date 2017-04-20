@@ -17,11 +17,18 @@ Plug 'vim-scripts/Align'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex']
 
-Plug 'vim-latex/vim-latex'
-let g:tex_flavor = 'latex'
-let g:Tex_GotoError = 0
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_CompileRule_pdf = 'latexmk -pdf -logfilewarninglist $*'
+Plug 'lervag/vimtex'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_sections = ["part", "chapter", "section", "subsection",
+            \ "subsubsection", "paragraph", "subparagraph"]
+let g:vimtex_compiler_progname = "$HOME/local/bin/nvr"
+let g:vimtex_view_method = 'zathura'
+nnoremap <localleader>lt :Denite vimtex_toc<CR>
+nnoremap <localleader>ly :Denite vimtex_labels<CR>
+
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_resolve_symlinks = 1
+
 
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
@@ -37,6 +44,22 @@ if has("nvim") || has("python3")
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_smart_case = 1
+
+    if !exists('g:deoplete#omni#input_patterns')
+        let g:deoplete#omni#input_patterns = {}
+    endif
+    let g:deoplete#omni#input_patterns.tex = '\\(?:'
+                \ .  '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+                \ . '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
+                \ . '|hyperref\s*\[[^]]*'
+                \ . '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+                \ . '|(?:include(?:only)?|input)\s*\{[^}]*'
+                \ . '|\w*(gls|Gls|GLS)(pl)?\w*(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+                \ . '|includepdf(\s*\[[^]]*\])?\s*\{[^}]*'
+                \ . '|includestandalone(\s*\[[^]]*\])?\s*\{[^}]*'
+                \ . '|usepackage(\s*\[[^]]*\])?\s*\{[^}]*'
+                \ . '|documentclass(\s*\[[^]]*\])?\s*\{[^}]*'
+                \ .')'
 endif
 call plug#end()
 " }}}
@@ -76,7 +99,7 @@ let g:netrw_winsize = 25        " Set width to 25% of page
 
 " {{{ Folds
 set foldenable
-set foldlevelstart=10
+set foldlevelstart=0
 set foldnestmax=10
 set foldmethod=indent
 set modelines=1
@@ -84,6 +107,8 @@ nnoremap <SPACE> za
 " }}}
 
 " {{{ General
+let g:tex_flavor = 'latex'
+
 set number
 set relativenumber
 set scrolloff=1
@@ -110,7 +135,7 @@ set colorcolumn=+1
 
 set history=1000
 
-set fillchars=vert:│                " vertical box-drawing character
+set fillchars=vert:│            " vertical box-drawing character
 
 set expandtab
 set copyindent
@@ -159,6 +184,8 @@ set pumheight=7                         " Completion menu
 if has("mouse")
     set mouse=a
 endif
+
+set tags=./tags;,tags;
 " }}}
 
 " {{{ Search
@@ -226,6 +253,7 @@ if has("autocmd")
 
     " Show trailing whitespace
     augroup whitespace
+        autocmd!
         autocmd VimEnter,WinEnter * match whitespace /\s\+$/
     augroup END
 endif
@@ -233,12 +261,13 @@ endif
 
 " {{{ Statusline
 set statusline=
-set statusline+=%1*%3v          "virtual column number
-set statusline+=\ %<\%F\        "full path
-set statusline+=%m              "modified flag
-set statusline+=%r              "read only flag
-set statusline+=%=%l            "current line
-set statusline+=/%L             "total lines
+set statusline+=%1*%3v                     "virtual column number
+set statusline+=\ %<\%F\                   "full path
+set statusline+=%m                         "modified flag
+set statusline+=%r                         "read only flag
+set statusline+=%{gutentags#statusline()}
+set statusline+=%=%l                       "current line
+set statusline+=/%L                        "total lines
 " }}}
 
 " {{{ Key Remaps
@@ -254,6 +283,9 @@ vnoremap : ,
 
 nnoremap j gj
 nnoremap k gk
+
+inoremap nj <Esc>A
+inoremap jn <Esc>I
 
 vnoremap Q gw
 nnoremap Q gqap
@@ -304,4 +336,4 @@ highlight Pmenu                 ctermbg=white   ctermfg=black
 highlight PmenuSel              ctermbg=green   ctermfg=black
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldmethod=marker
