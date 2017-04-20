@@ -7,6 +7,7 @@
 [core]
     autocrlf = input
     whitespace = trailing-space,space-before-tab
+    excludesfile = ~/.gitignore_global
 [color]
     ui = auto
 [color "branch"]
@@ -30,6 +31,7 @@
     ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cgreen\\ [%cn]" --decorate
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cgreen\\ [%cn]" --decorate --numstat
     wdiff = diff --color-words
+    ctags = !.git/hooks/ctags
 [diff]
     renames = copies
     mnemonicprefix = true
@@ -37,3 +39,5 @@
     enabled = true
 [merge]
     stat = true
+[init]
+    templatedir = ~/.git-templates
