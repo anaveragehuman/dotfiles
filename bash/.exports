@@ -2,8 +2,9 @@
 # File: .exports
 
 export PATH="~/bin:~/.local/bin:$(ruby -e "print Gem.user_dir")/bin:$PATH"
-
 export PAGER=less
+
+export GPG_TTY=$(tty)
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
