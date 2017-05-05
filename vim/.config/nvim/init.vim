@@ -13,6 +13,7 @@ call plug#begin()
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/Align'
+Plug 'tommcdo/vim-exchange'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex']
@@ -21,14 +22,9 @@ Plug 'lervag/vimtex'
 let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_sections = ["part", "chapter", "section", "subsection",
             \ "subsubsection", "paragraph", "subparagraph"]
-let g:vimtex_compiler_progname = "$HOME/local/bin/nvr"
-let g:vimtex_view_method = 'zathura'
-nnoremap <localleader>lt :Denite vimtex_toc<CR>
-nnoremap <localleader>ly :Denite vimtex_labels<CR>
 
 Plug 'ludovicchabant/vim-gutentags'
 let g:gutentags_resolve_symlinks = 1
-
 
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
@@ -38,8 +34,6 @@ if has("nvim") || has("python3")
     autocmd BufWritePost * Neomake
     let g:neomake_open_list = 2
     let g:neomake_list_height = 3
-
-    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
@@ -172,7 +166,6 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 set pastetoggle=<f11>
 set whichwrap+=<,>,[,]
 set splitbelow splitright
-set esckeys                             " Allow using arrow keys to navigate
 set visualbell t_vb=                    " Disable the bell
 set nodigraph                           " Enable input of special characters by combining two characters
 set noerrorbells                        " Disable error bells
@@ -265,16 +258,15 @@ set statusline+=%1*%3v                     "virtual column number
 set statusline+=\ %<\%F\                   "full path
 set statusline+=%m                         "modified flag
 set statusline+=%r                         "read only flag
-set statusline+=%{gutentags#statusline()}
 set statusline+=%=%l                       "current line
 set statusline+=/%L                        "total lines
 " }}}
 
 " {{{ Key Remaps
-inoremap jk <esc>
-inoremap kj <esc>
-inoremap JK <esc>
-inoremap KJ <esc>
+inoremap jf <esc>
+inoremap fj <esc>
+inoremap JF <esc>
+inoremap FJ <esc>
 
 nnoremap , :
 vnoremap , :
@@ -284,8 +276,11 @@ vnoremap : ,
 nnoremap j gj
 nnoremap k gk
 
-inoremap nj <Esc>A
-inoremap jn <Esc>I
+nnoremap <Down> ddp
+nnoremap <Up> ddkP
+
+inoremap <C-e> <Esc>A
+inoremap <C-a> <Esc>I
 
 vnoremap Q gw
 nnoremap Q gqap
@@ -305,7 +300,7 @@ vnoremap <F2> d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
 
 " {{{ Spelling
 " Toggle spelling with F10 key:
-map <F10> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
+nnoremap <F10> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
 set spellfile=~/.vim/spellfile.add
 
 " Highlight spelling correction:
