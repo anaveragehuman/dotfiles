@@ -29,6 +29,9 @@ let g:gutentags_resolve_symlinks = 1
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
 
+Plug 'sophacles/vim-processing'
+let g:processing_fold = 1
+
 if has("nvim") || has("python3")
     Plug 'neomake/neomake'
     autocmd BufWritePost * Neomake
@@ -95,7 +98,7 @@ let g:netrw_winsize = 25        " Set width to 25% of page
 set foldenable
 set foldlevelstart=0
 set foldnestmax=10
-set foldmethod=indent
+set foldmethod=syntax
 set modelines=1
 nnoremap <SPACE> za
 " }}}
@@ -112,7 +115,6 @@ set autoread
 set updatetime=250
 set showmode
 set cursorline                  " Highlight the current line
-set autoindent
 set formatoptions=crqnj
 set backspace=indent,eol,start
 set path+=**
@@ -132,6 +134,8 @@ set history=1000
 set fillchars=vert:│            " vertical box-drawing character
 
 set expandtab
+set autoindent
+set smartindent
 set copyindent
 set preserveindent
 set tabstop=4
@@ -290,6 +294,7 @@ inoremap [<cr> [<cr>]<c-o>O
 inoremap (<cr> (<cr>)<c-o>O
 
 nnoremap <leader>W :w !sudo tee > /dev/null %<CR><CR>
+nnoremap <leader>M :make<CR>
 
 " Very magic mode, global replace, ask for confirmation
 nnoremap <leader>/ :%s/\v/gc<Left><Left><Left>
