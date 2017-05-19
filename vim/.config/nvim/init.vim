@@ -5,15 +5,17 @@ let g:python_host_prog = "/usr/bin/python2"
 
 " {{{ Plugins
 " vim-plug
-if empty(glob("~/.vim/autoload/plug.vim"))
-    execute '!curl -fsLo --create-dirs ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/Align'
 Plug 'tommcdo/vim-exchange'
+Plug 'vim-utils/vim-troll-stopper'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex']
@@ -31,6 +33,9 @@ nnoremap U :UndotreeToggle<CR>
 
 Plug 'sophacles/vim-processing'
 let g:processing_fold = 1
+
+Plug 'tommcdo/vim-lion'
+let g:lion_squeeze_spaces=1
 
 if has("nvim") || has("python3")
     Plug 'neomake/neomake'
