@@ -16,6 +16,7 @@ Plug 'tomasr/molokai'
 Plug 'tpope/vim-surround'
 Plug 'tommcdo/vim-exchange'
 Plug 'vim-utils/vim-troll-stopper'
+Plug 'editorconfig/editorconfig-vim'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex']
