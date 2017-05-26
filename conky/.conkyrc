@@ -12,7 +12,7 @@ conky.config = {
     own_window_class="conky",
     own_window_hints="undecorated,below,sticky,skip_taskbar,skip_pager",
     own_window_type="override",
-    update_interval=1.0,
+    update_interval=2.0,
     use_xft=true,
     xftalpha=0.1
 }
@@ -31,7 +31,6 @@ ${exec cat /proc/cpuinfo | grep -Po 'model\s+name\s+:\s+\K.*?GHz' | head -1}
 
 USAGE: ${color #39ff14}${alignr}${cpu cpu0}%
 ${color #ffff00}${cpugraph 50}
-
 ${color #ff0000}${top name 1}${alignr}${top cpu 1}%${color}
 ${top name 2}${alignr}${top cpu 2}%
 ${top name 3}${alignr}${top cpu 3}%
@@ -39,10 +38,8 @@ ${top name 4}${alignr}${top cpu 4}%
 ${top name 5}${alignr}${top cpu 5}%
 
 ${font Liberation Mono:style=Bold:pixelsize=15}MEMORY ${hr 1} ${font}
-
 USAGE: ${alignr}${mem} - ${color #39ff14}${memperc}%${color}
 ${color #ffff00}${membar 6}
-
 ${color #ff0000}${top_mem name 1}${alignr}${top_mem mem 1}%${color}
 ${top_mem name 2}${alignr}${top_mem mem 2}%
 ${top_mem name 3}${alignr}${top_mem mem 3}%
@@ -60,7 +57,6 @@ ${color #ffff00}${fs_bar 4 /home}${color}
 ${color #ffff00}${fs_bar 4 /mnt/Data}${color}
 
 ${font Liberation Mono:style=Bold:pixelsize=15}NETWORK ${hr 1}${font}
-
 WIRELESS DOWN: ${color #39ff14}${downspeed wlp1s0}${color}${alignr}UP: ${color #39ff14}${upspeed wlp1s0}${color}
 ETHERNET DOWN: ${color #39ff14}${downspeed enp2s0}${color}${alignr}UP: ${color #39ff14}${upspeed enp2s0}${color}
 
