@@ -28,18 +28,17 @@
     autosetupmerge = true
 [alias]
     all = "!f() { ls -R -d */.git | sed s,/.git,, | xargs -P10 -I{} git -C {} $1; }; f"
-    ls = log --pretty=format:"%C(yellow)%h\\ %C(magenta)%G?%Cred%d\\ %Creset%s%Cgreen\\ [%cn]" --decorate
-    ll = log --pretty=format:"%C(yellow)%h\\ %C(magenta)%G?%Cred%d\\ %Creset%s%Cgreen\\ [%cn]" --decorate --numstat
+    ls = log --pretty=format:"%C(yellow)%h\\ %C(magenta)%G?%Cred%d\\ %Creset%s%Cgreen\\ [%aN]" --decorate
+    ll = log --pretty=format:"%C(yellow)%h\\ %C(magenta)%G?%Cred%d\\ %Creset%s%Cgreen\\ [%aN]" --decorate --numstat
     wdiff = diff --color-words
     ctags = !.git/hooks/ctags
     anw = !git diff -U0 -w --no-color -- \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero "#"
     lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
     lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-
-
 [diff]
     renames = copies
     mnemonicprefix = true
+    wordRegex = [[:alnum:]_]+|[^[:alnum:]_[:space:]]+
 [rerere]
     enabled = true
 [merge]
@@ -48,3 +47,8 @@
     templatedir = ~/.git-templates
 [commit]
     gpgsign = true
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
