@@ -6,13 +6,14 @@ let g:python_host_prog = "/usr/bin/python2"
 " {{{ Plugins
 " vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
 Plug 'tomasr/molokai'
+Plug 'wellle/targets.vim'
 Plug 'tpope/vim-surround'
 Plug 'tommcdo/vim-exchange'
 Plug 'vim-utils/vim-troll-stopper'
@@ -118,6 +119,7 @@ set scrolloff=1
 set sidescrolloff=5
 set display+=lastline
 set autoread
+set autochdir
 set updatetime=250
 set showmode
 set cursorline                  " Highlight the current line
@@ -152,16 +154,18 @@ set listchars=tab:»\ ,extends:»
 
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.log,.aux,.bbl,.blg,.idx,.ilg,.ind,.out,.pdf
 
-if has('syntax')
+if has('syntax') && !exists("g:syntax_on")
     syntax enable
     set omnifunc=syntax
 endif
+
+set synmaxcol=500                   " Syntax highlight only beginning of line.
 
 set title
 set showcmd                         " Show (partial) command in status line.
 set showmatch                       " Show matching brackets.
 
-set ignorecase
+set infercase
 set smartcase
 set incsearch
 set hlsearch
@@ -172,6 +176,7 @@ set autowrite                           " Automatically save before commands lik
 set hidden                              " Hide buffers when they are abandoned
 set lazyredraw                          " Redraw only when needed
 set wildmenu
+set wildmode=full
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set pastetoggle=<f11>
 set whichwrap+=<,>,[,]
@@ -192,8 +197,8 @@ set tags=./tags;,tags;
 " }}}
 
 " {{{ Search
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
+if executable('rg')
+    set grepprg=rg
 else
     set grepprg=grep\ -nH\ $*
 endif
@@ -217,6 +222,12 @@ function! Reindent()
 endfunction
 
 nnoremap <leader>= :call Reindent()<CR>
+
+function! Spelling()
+    setlocal spell
+    setlocal spelllang=en_us
+    setlocal complete+=kspell
+endfunction
 " }}}
 
 " {{{ Autocmd
@@ -230,7 +241,14 @@ if has("autocmd")
         autocmd FocusGained,BufEnter * silent! !
     augroup END
 
-    autocmd FileType gitcommit,markdown,tex,txt setlocal spell spelllang=en_us
+    augroup spelling
+        autocmd!
+        autocmd FileType gitcommit,markdown,tex,txt call Spelling()
+        autocmd VimEnter * exec
+                    \ "if @% == '' && filereadable(@%) == 0 && line('$') == 1 && col('$') == 1
+                    \ \n call Spelling()
+                    \ \n endif"
+    augroup END
 
     augroup enter_esc
         autocmd!
@@ -283,11 +301,11 @@ vnoremap , :
 nnoremap : ,
 vnoremap : ,
 
-nnoremap j gj
-nnoremap k gk
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
-nnoremap <Down> ddp
-nnoremap <Up> ddkP
+nnoremap <C-Down> ddp
+nnoremap <C-Up> ddkP
 
 inoremap <C-e> <Esc>A
 inoremap <C-a> <Esc>I
@@ -299,7 +317,7 @@ inoremap {<cr> {<cr>}<c-o>O
 inoremap [<cr> [<cr>]<c-o>O
 inoremap (<cr> (<cr>)<c-o>O
 
-nnoremap <leader>W :w !sudo tee > /dev/null %<CR><CR>
+nnoremap <leader>W :w !sudo tee %<CR><CR>
 nnoremap <leader>M :make<CR>
 
 " Very magic mode, global replace, ask for confirmation
