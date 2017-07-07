@@ -50,7 +50,7 @@ compton -b --no-dock-shadow --no-dnd-shadow --vsync none --sw-opti \
 conky &
 redshift -l 40.8:-73.9 -m randr -t 4200:1900 &
 xbacklight -set 75 &
-fcitx-autostart &
+fcitx &
 transmission-qt --minimized &
 exec awesome
 
