@@ -40,8 +40,10 @@ bind "set menu-complete-display-prefix on"
 bind "set completion-ignore-case on"
 
 export HISTCONTROL="$HISTCONTROL erasedups:ignoreboth"
+export HISTFILESIZE=
 export HISTIGNORE="$HISTIGNORE ?:??"
-
+export HISTSIZE=
+export HISTTIMEFORMAT="[%F %T] "
 
 # Unbind some keys
 stty stop undef

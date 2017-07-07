@@ -1,7 +1,7 @@
 #!/bin/bash
 # File: ~/.functions
 
-function a {
+a() {
     "$@"
     local e=$?
     [ $e != 0 ] && local urgency='--urgency=critical'
@@ -10,47 +10,44 @@ function a {
     return $e
 }
 
-function cd {
+cd() {
     [ $# -eq 0 ] && DIR=${HOME} || DIR=$1
     builtin pushd "${DIR}" > /dev/null
 }
 
-function pb {
+pb() {
     curl -F "c=@${1:--}" https://ptpb.pw/
 }
 
-function ftext {
-    grep -iIHrn --color=always "$1" . | less -r
+pbs() {
+    curl -F "c=@${1:--}" -F sunset=3600 -F p=1 https://ptpb.pw/
 }
 
-function genpasswd {
+genpasswd() {
     tr -dc "a-zA-Z0-9-_!@#$%^&*()_+{}|:<>?=" < /dev/random | head -c "${1:-20}"
     printf "\n"
 }
 
-function weather {
+weather() {
     curl -sS http://wttr.in/"$1" | head -n -2
 }
 
 # create and move into directory
-function mkcd {
-    mkdir -p "$1"
-    cd "$1"
+mkcd() {
+    mkdir -p "$1" && cd "$1" || return
 }
 
 # move to directory and list its contents
-function lcd {
-    cd "$1"
-    ls
+lcd() {
+    cd "$1" && ls || return
 }
 
-function shred {
+shred() {
     if [ $# -gt 0 ]; then
         find "$@" -type f -print0 \
-            | xargs -0 shred --random-source=/dev/random --remove=wipesync --verbose --zero \
+            | xargs -0 /usr/bin/shred --random-source=/dev/random --remove=wipesync --verbose --zero \
             && rm -rf "$@"
         sync
     fi
 }
 
-# vim:foldmethod=marker:foldlevel=0
