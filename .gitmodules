@@ -1,3 +1,6 @@
 [submodule "dotfiles/X/awesome/awesome-switcher-preview"]
     path = awesome/.config/awesome/awesome-switcher-preview
     url = https://github.com/berlam/awesome-switcher-preview.git
+[submodule "awesome/.config/awesome/eminent"]
+	path = awesome/.config/awesome/eminent
+	url = https://github.com/AnAverageHuman/eminent.git

@@ -12,6 +12,7 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 -- Switcher preview
 local switcher = require("awesome-switcher-preview")
+require("eminent")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to another config.
