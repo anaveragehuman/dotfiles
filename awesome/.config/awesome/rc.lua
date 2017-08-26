@@ -19,7 +19,6 @@ require("awful.hotkeys_popup.keys")
 
 -- Switcher preview
 local switcher = require("awesome-switcher-preview")
-require("eminent")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to another config.
@@ -223,7 +222,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper()
 
     -- Each screen has its own tag table.
-    awful.tag({"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}, s, awful.layout.layouts[1])
+    awful.tag({"1", "2", "3", "4", "5", "6", "7", "8", "9"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
