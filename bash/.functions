@@ -28,6 +28,10 @@ genpasswd() {
     printf "\n"
 }
 
+genword() {
+    shuf -n"${1:-1}" /usr/share/dict/words
+}
+
 weather() {
     curl -sS http://wttr.in/"$1" | head -n -2
 }
