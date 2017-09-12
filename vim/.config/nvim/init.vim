@@ -12,12 +12,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
+Plug 'robertmeta/nofrils'
 Plug 'tomasr/molokai'
-Plug 'wellle/targets.vim'
-Plug 'tpope/vim-surround'
-Plug 'tommcdo/vim-exchange'
-Plug 'vim-utils/vim-troll-stopper'
+
+Plug 'AndrewRadev/linediff.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex']
@@ -64,21 +66,10 @@ if has("nvim") || has("python3")
                 \ . '|usepackage(\s*\[[^]]*\])?\s*\{[^}]*'
                 \ . '|documentclass(\s*\[[^]]*\])?\s*\{[^}]*'
                 \ .')'
+
+    Plug 'zchee/deoplete-jedi'
 endif
 call plug#end()
-" }}}
-
-"{{{ Theme
-let g:molokai_original = 1
-let g:rehash256 = 1
-colorscheme molokai
-set background=dark
-
-if has("vim")
-    set t_Co=256
-    set nocompatible
-    set ttyfast
-endif
 " }}}
 
 " {{{ Undo, Backups, Swap
@@ -243,7 +234,7 @@ if has("autocmd")
 
     augroup spelling
         autocmd!
-        autocmd FileType gitcommit,markdown,tex,txt call Spelling()
+        autocmd FileType gitcommit,markdown,tex,text call Spelling()
         autocmd VimEnter * exec
                     \ "if @% == '' && filereadable(@%) == 0 && line('$') == 1 && col('$') == 1
                     \ \n call Spelling()
@@ -359,5 +350,19 @@ highlight NeomakeInfo           ctermbg=blue
 highlight Pmenu                 ctermbg=white   ctermfg=black
 highlight PmenuSel              ctermbg=green   ctermfg=black
 " }}}
+
+"{{{ Theme
+let g:molokai_original = 1
+let g:rehash256 = 1
+set background=dark
+colorscheme nofrils-dark
+
+if has("vim")
+    set t_Co=256
+    set nocompatible
+    set ttyfast
+endif
+" }}}
+
 
 " vim:foldmethod=marker
