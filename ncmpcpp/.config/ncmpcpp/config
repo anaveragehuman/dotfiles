@@ -1,0 +1,7 @@
+execute_on_player_state_change = i="$(mpc -f '%title%\n%artist%\n%album%')"; notify-send -t 10000 "$(head -n3 <<< """$i""")" "$(tail -n2 <<< """$i""")"
+
+# user interface
+autocenter_mode = yes
+progressbar_look = ::
+cyclic_scrolling = yes
+
