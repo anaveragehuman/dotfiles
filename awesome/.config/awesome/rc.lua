@@ -321,8 +321,8 @@ globalkeys = gears.table.join(
     end),
 
     awful.key({ "Control", "Mod1" }, "l",     function () awful.util.spawn("physlock -ms") end),
-    awful.key({                   }, "Print", function () awful.spawn("xfce4-screenshooter --save /tmp --fullscreen") end),
-    awful.key({ "Shift"           }, "Print", function () awful.spawn("xfce4-screenshooter --save /tmp --region")     end)
+    awful.key({                   }, "Print", function () awful.spawn("bash -c 'python $HOME/scripts/mkscreenshot.py'") end),
+    awful.key({ "Shift"           }, "Print", function () awful.spawn("bash -c 'python $HOME/scripts/mkscreenshot.py --select'") end)
     )
 
 clientkeys = gears.table.join(
