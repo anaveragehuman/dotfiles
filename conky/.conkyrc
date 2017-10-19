@@ -20,7 +20,7 @@ conky.config = {
 conky.text = [[
 ${font Liberation Mono:style=Bold:pixelsize=15}SYSTEM ${hr 1}${font}
 
-USER: ${alignr}${exec whoami}
+USER: ${alignr} ${exec whoami}
 HOSTNAME: ${alignr}${nodename}
 KERNEL: ${alignr}${sysname} ${kernel}
 UPTIME: ${color #39ffff}${alignr}${uptime}${color}
@@ -60,7 +60,7 @@ ${font Liberation Mono:style=Bold:pixelsize=15}NETWORK ${hr 1}${font}
 WIRELESS DOWN: ${color #39ff14}${downspeed wlp1s0}${color}${alignr}UP: ${color #39ff14}${upspeed wlp1s0}${color}
 ETHERNET DOWN: ${color #39ff14}${downspeed enp2s0}${color}${alignr}UP: ${color #39ff14}${upspeed enp2s0}${color}
 
-PUBLIC IP: ${color #39ffff}${alignr}${execi 600 curl --silent http://canihazip.com/s}${color}
+PUBLIC IP: ${color #39ffff}${alignr}${execi 600 curl --silent https://canihazip.com/s}${color}
 LAN IPv4 (E): ${alignr}${addr enp2s0}
 LAN IPv4 (W): ${alignr}${addr wlp1s0}
 ]]
