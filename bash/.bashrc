@@ -34,11 +34,6 @@ shopt -s histappend                             # Append to history file instead
 shopt -s no_empty_cmd_completion                # Do not search for completions if line is empty
 
 
-bind "TAB: menu-complete"
-bind 'set show-all-if-ambiguous on'
-bind "set menu-complete-display-prefix on"
-bind "set completion-ignore-case on"
-
 export HISTCONTROL="$HISTCONTROL erasedups:ignoreboth"
 export HISTFILESIZE=
 export HISTIGNORE="$HISTIGNORE ?:??"
@@ -49,10 +44,6 @@ export HISTTIMEFORMAT="[%F %T] "
 stty stop undef
 stty start undef
 stty -ixon
-
-# Show only commands beginning with current input
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
 
 # {{{ Prompt
 PROMPT_COMMAND=_prompt
