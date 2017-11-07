@@ -43,7 +43,6 @@ let g:lion_squeeze_spaces=1
 
 if has("nvim") || has("python3")
     Plug 'neomake/neomake'
-    autocmd BufWritePost * Neomake
     let g:neomake_open_list = 2
     let g:neomake_list_height = 3
 
@@ -70,6 +69,9 @@ if has("nvim") || has("python3")
     Plug 'zchee/deoplete-jedi'
 endif
 call plug#end()
+
+" When reading a buffer (after 1s), and when writing.
+call neomake#configure#automake('rw', 1000)
 " }}}
 
 " {{{ Undo, Backups, Swap
