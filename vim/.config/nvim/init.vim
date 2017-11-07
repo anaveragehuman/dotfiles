@@ -284,11 +284,6 @@ set statusline+=/%L                        "total lines
 " }}}
 
 " {{{ Key Remaps
-inoremap jf <esc>
-inoremap fj <esc>
-inoremap JF <esc>
-inoremap FJ <esc>
-
 nnoremap , :
 vnoremap , :
 nnoremap : ,
