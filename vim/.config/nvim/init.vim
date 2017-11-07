@@ -22,7 +22,7 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
 Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['tex']
+let g:polyglot_disabled = ['tex', 'latex']
 
 Plug 'lervag/vimtex'
 let g:vimtex_fold_enabled = 1
