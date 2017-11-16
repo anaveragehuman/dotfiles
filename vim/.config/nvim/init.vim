@@ -42,9 +42,14 @@ Plug 'tommcdo/vim-lion'
 let g:lion_squeeze_spaces=1
 
 if has("nvim") || has("python3")
-    Plug 'neomake/neomake'
-    let g:neomake_open_list = 2
-    let g:neomake_list_height = 3
+    Plug 'w0rp/ale'
+    let g:ale_completion_enabled = 1
+    let g:ale_lint_on_text_changed = 'never'
+    let g:ale_open_list = 1
+    let g:ale_set_loclist = 0
+    let g:ale_set_quickfix = 1
+    let g:ale_sign_error = '>'
+    let g:ale_sign_warning = '-'
 
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
@@ -69,9 +74,6 @@ if has("nvim") || has("python3")
     Plug 'zchee/deoplete-jedi'
 endif
 call plug#end()
-
-" When reading a buffer (after 1s), and when writing.
-call neomake#configure#automake('rw', 1000)
 " }}}
 
 " {{{ Undo, Backups, Swap
