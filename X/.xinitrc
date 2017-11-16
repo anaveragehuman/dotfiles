@@ -48,7 +48,7 @@ compton -b --no-dock-shadow --no-dnd-shadow --vsync none --sw-opti \
     --no-fading-openclose --backend glx --glx-no-stencil \
     --glx-use-copysubbuffermesa --glx-use-gpushader4 &
 conky &
-redshift -l 40.8:-73.9 -m randr -t 4200:1900 &
+redshift &
 xbacklight -set 75 &
 fcitx &
 transmission-qt --minimized &
