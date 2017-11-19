@@ -56,18 +56,21 @@ _prompt() {
     local MAGENTA="\[$(tput setaf 5)\]"
     local CYAN="\[$(tput setaf 6)\]"
     local RESET="\[$(tput sgr0)\]"
-    PS1="\[$(tput bold)\]"
+    local BOLD="\[$(tput bold)\]"
+    PS1=${BOLD}
 
     # Show exit code if not 0
     if [[ $EXIT != 0 ]]; then
         PS1+="${RED}$EXIT "
     fi
 
-    # Show hostname if root, show hostname and username if ssh'd in.
-    if [[ "$(id -u)" == 0 ]]; then
+    # Show hostname if root; show hostname and username if ssh'd in; show username if != login name
+    if [[ "$(id -u)" -eq 0 ]]; then
         PS1+="${RED}\h "
     elif [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        PS1+="${BLUE}\h \u "
+        PS1+="${BLUE}\u${RESET}${BOLD}@${BLUE}\h "
+    elif [[ "$(logname 2> /dev/null)" != "$(id -un)" ]]; then
+        PS1+="${BLUE}\u "
     fi
 
     # Show git branch and dirtiness if we are on one
