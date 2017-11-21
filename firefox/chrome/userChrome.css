@@ -1,0 +1,84 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+/* chrome://browser/content/browser.xul */
+
+/* Remove the "Sign in to sync" from top of photon hamburger menu. */
+#appMenu-fxa-container, #appMenu-fxa-container + toolbarseparator {
+    display: none !important;
+}
+
+/* Remove things */
+
+.tabbrowser-tab:not([pinned]) #pocket-button-box, #page-action-buttons {
+    display: none !important;
+}
+
+:root {
+    --toolbarbutton-border-radius: 0px !important; /* make things sharper on the edges. */
+    transition: 0s;
+    border-radius: 0px !important;
+
+    --chrome-color: #000000 !important;
+    --chrome-background-color: #171a1c !important; /*includes tabstrip background*/
+    --chrome-secondary-background-color: #ffffff !important; /*includes toolbar, urlbar*/
+    --url-and-searchbar-background-color: #efefef !important;
+    --chrome-nav-bar-controls-border-color: #dddddd !important; /*urlbar border*/
+    --tab-hover-background-color: #3f3f3f !important;
+}
+
+#TabsToolbar, .tabbrowser-tab, menubar {
+    color: #ffffff !important;
+}
+
+.tabbrowser-tab[selected] {
+    color: #000000 !important;
+}
+
+.tabbrowser-tab:not(:hover) .close-icon {
+    opacity: 0 !important;
+}
+
+/*hide stuff*/
+
+#forward-button[disabled="true"], #back-button[disabled="true"], .private-browsing-indicator, .urlbar-textbox-container > .urlbar-history-dropmarker {
+    display: none !important;
+}
+
+
+/* collapse separation between keyword and tags */
+#editBMPanel_tagsSelector[collapsed="true"] {
+    display: none !important;
+}
+
+
+/*----Container tweaks----*/
+
+/*Color mods*/
+/*Change the color of the tab line of container tabs*/
+.tabbrowser-tab[usercontextid] .tab-line[selected="true"] {
+    --tab-line-color: var(--identity-tab-color) !important;
+}
+
+.tabbrowser-tab[usercontextid]:not([selected]):hover .tab-line {
+    --tab-line-color: var(--identity-tab-color) !important;
+}
+
+/*Smaller tab font*/
+.tabbrowser-tab label {
+    font-size: 85% !important;
+}
+
+#nav-bar {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    border-top-width: 0px !important;
+}
+
+/*--More options for Bookmark panel--*/
+#editBMPanel_keywordRow, #editBMPanel_descriptionRow, #editBMPanel_locationRow, #editBMPanel_loadInSidebarCheckbox {
+    visibility: visible;
+}
+
+/* Incognito */
+#main-window[privatebrowsingmode="temporary"] #nav-bar {
+    background-color: hsl(262, 100%, 75%)!important;
+}
