@@ -18,6 +18,20 @@
     display: none !important;
 }
 
+/* Hide context menu items http://kb.mozillazine.org/UserChrome.css_Element_Names/IDs */
+#context-sendimage,
+#context-setWallpaper,
+#context-setDesktopBackground,
+#context-sendlinktodevice,
+#context-sep-sendlinktodevice,
+#context-bookmarklink,
+#context-navigation,
+#context-sep-navigation,
+#context-sendpagetodevice,
+#context-sep-sendpagetodevice {
+    display: none !important;
+}
+
 :root {
     --toolbarbutton-border-radius: 0px !important; /* make things sharper on the edges. */
     transition: 0s;
