@@ -8,7 +8,13 @@
 
 /* Remove things */
 
-.tabbrowser-tab:not([pinned]) #pocket-button-box, #page-action-buttons {
+.tabbrowser-tab:not([pinned]) #pocket-button-box,
+.tabbrowser-tab:not(:hover) .close-icon,
+#pageActionButton,
+#forward-button[disabled="true"],
+#back-button[disabled="true"],
+.private-browsing-indicator,
+.urlbar-textbox-container > .urlbar-history-dropmarker {
     display: none !important;
 }
 
@@ -32,17 +38,6 @@
 .tabbrowser-tab[selected] {
     color: #000000 !important;
 }
-
-.tabbrowser-tab:not(:hover) .close-icon {
-    opacity: 0 !important;
-}
-
-/*hide stuff*/
-
-#forward-button[disabled="true"], #back-button[disabled="true"], .private-browsing-indicator, .urlbar-textbox-container > .urlbar-history-dropmarker {
-    display: none !important;
-}
-
 
 /* collapse separation between keyword and tags */
 #editBMPanel_tagsSelector[collapsed="true"] {
