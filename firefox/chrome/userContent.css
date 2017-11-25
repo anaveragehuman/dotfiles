@@ -1,0 +1,7 @@
+@-moz-document url("about:newtab") {
+    * {
+        background-color: #ffeee3 !important;
+        display: none !important;
+    }
+}
+
