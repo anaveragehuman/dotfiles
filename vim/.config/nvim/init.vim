@@ -15,9 +15,17 @@ call plug#begin()
 Plug 'robertmeta/nofrils'
 Plug 'tomasr/molokai'
 
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+let g:goyo_height=95
+
 Plug 'AndrewRadev/linediff.vim'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'tommcdo/vim-exchange'
+
+Plug 'editorconfig/editorconfig-vim'
+
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
@@ -328,6 +336,8 @@ highlight SpellCap  term=reverse     ctermbg=9  gui=undercurl guisp=Orange
 highlight SpellRare term=reverse     ctermbg=13 gui=undercurl guisp=Magenta
 highlight SpellLocale term=underline ctermbg=11 gui=undercurl guisp=Yellow
 set sps=best,10
+
+set dictionary+=/usr/share/dict/words
 " }}}
 
 " {{{ Colors
