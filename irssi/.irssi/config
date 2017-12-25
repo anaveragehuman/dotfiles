@@ -1,0 +1,211 @@
+servers = (
+  {
+    address = "freenodeok2gncmy.onion";
+    chatnet = "Freenode";
+    port = "6697";
+    use_tls = "yes";
+    tls_cert = "~/.irssi/certs/freenode.pem";
+    tls_verify = "no";
+    autoconnect = "yes";
+  },
+  {
+    address = "irc.tik-t0k.net";
+    chatnet = "Tik-T0k";
+    port = "6697";
+    use_ssl = "yes";
+
+  },
+  {
+    address = "irc.oftc.net";
+    chatnet = "OFTC";
+    port = "6697";
+    use_tls = "yes";
+    tls_cert = "~/.irssi/certs/oftc.pem";
+    tls_verify = "yes";
+    autoconnect = "yes";
+  }
+);
+
+chatnets = {
+  Freenode = {
+    type = "IRC";
+    max_kicks = "1";
+    max_msgs = "4";
+    max_modes = "4";
+    max_whois = "1";
+    sasl_mechanism = "EXTERNAL";
+  };
+  "Tik-T0k" = { type = "IRC"; };
+  OFTC = { type = "IRC"; };
+};
+
+statusbar = {
+  items = {
+    barstart = "{sbstart}";
+    barend = "{sbend}";
+
+    topicbarstart = "{topicsbstart}";
+    topicbarend = "{topicsbend}";
+
+    time = "%K {sb %G$Z}%K {sbaway $A} %g$topic%K";
+    user = "{sb {sbnickmode $cumode}{sbmode $usermode}}";
+
+    window = "";
+    window_empty = "{sb $winref/{sbservertag $tag}}";
+
+    prompt = "$winref%K/{prompt $[.15]itemname}";
+    prompt_empty = "{prompt $winname}";
+    topic = " $topic";
+
+    lag = "{sb Lag: $0-}";
+    act = "{sb $0-}";
+    more = "-- %Ymore%n --";
+  };
+
+  default = {
+    window = {
+      disabled = "no";
+      type = "window";
+      placement = "top";
+      position = "1";
+      visible = "active";
+
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+        user = { };
+        window = { };
+        window_empty = { };
+        lag = { priority = "-1"; };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+
+    window_inact = {
+      type = "window";
+      placement = "bottom";
+      position = "1";
+      visible = "inactive";
+      items = {
+        barstart = { priority = "100"; };
+        window = { };
+        window_empty = { };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+      disabled = "yes";
+    };
+
+    prompt = {
+      type = "root";
+      placement = "bottom";
+      position = "1";
+      visible = "active";
+      items = { input = { }; };
+    };
+
+    topic = {
+      type = "root";
+      placement = "top";
+      position = "2";
+      visible = "always";
+      items = {
+        topicbarstart = { priority = "100"; };
+        topic = { };
+        topic_empty = { };
+        topicbarend = { priority = "100"; alignment = "right"; };
+      };
+      disabled = "yes";
+    };
+    window_add = { items = { }; disabled = "yes"; };
+    add = { disabled = "yes"; };
+    delete = { disabled = "yes"; };
+    prompt_empty = { position = "0"; disabled = "yes"; };
+    asd = {
+      position = "0";
+      placement = "bottom";
+      items = { };
+      disabled = "yes";
+    };
+    topic_empty = { disabled = "yes"; };
+    remove = { items = { }; disabled = "yes"; };
+    channels = { items = { chanact = { }; }; disabled = "yes"; };
+    statusbar = {
+
+      items = {
+        erotin = {
+          items = { barstart = "asdasd--------------"; };
+          priority = "100";
+          alignment = "left";
+          disabled = "no";
+          placement = "bottom";
+          position = "0";
+        };
+        awaybar = { alignment = "right"; };
+      };
+    };
+
+
+    "-before" = { disabled = "yes"; };
+    aw1_0 = { position = "0"; disabled = "yes"; };
+    empty = { placement = "bottom"; position = "0"; disabled = "yes"; };
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
+  };
+};
+settings = {
+  core = {
+    real_name = "AnAverageHuman";
+    user_name = "AnAverageHuman";
+    nick = "AnAverageHuman";
+    timestamp_format = "%d-%H:%M";
+  };
+  "fe-text" = {
+    actlist_sort = "refnum";
+    colors_ansi_24bit = "no";
+    scrollback_lines = "0";
+    scrollback_time = "14day";
+  };
+  "fe-common/core" = {
+    autocreate_own_query = "yes";
+    theme = "88_madcows";
+    emphasis_italics = "yes";
+    hilight_color = "%g";
+    hilight_act_color = "%R";
+  };
+  "irc/core" = { skip_motd = "yes"; };
+  "perl/core/scripts" = {
+    awl_all_disable = "no";
+    awl_automode = "sbar";
+    awl_block = "20";
+    awl_columns = "1";
+    awl_display_key = "%K%0$H $N %N";
+    awl_display_key_active = "%1 %W$C %N";
+    awl_display_nokey = "%K%0$H $N %N";
+    awl_display_nokey_active = "%1 %W$C %N";
+    awl_height_adjust = "1";
+    awl_hide_data = "0";
+    awl_maxlines = "9";
+    awl_placement = "bottom";
+    awl_position = "0";
+    awl_prefer_name = "yes";
+    awl_sbar_maxlength = "yes";
+    awl_separator = "%N %N";
+    awl_sort = "refnum";
+    nickcolor_colors = "2 3 4 5 6 7 9 10 11 12 13";
+  };
+};
+
+aliases = { wc = "window close"; };
+hilights = (
+  { text = "AnAverageHuman"; nick = "yes"; word = "yes"; },
+  { text = "Average"; nick = "no"; word = "yes"; },
+  { text = "Human"; nick = "no"; word = "yes"; }
+);
+ignores = ( { level = "CTCPS"; } );
