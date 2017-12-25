@@ -88,6 +88,21 @@ local function client_menu_toggle_fn()
         end
     end
 end
+
+local function rename_tag()
+    awful.prompt.run {
+        prompt       = "New tag name: ",
+        textbox      = awful.screen.focused().mypromptbox.widget,
+        exe_callback = function(new_name)
+            if not new_name or #new_name == 0 then return end
+
+            local t = awful.screen.focused().selected_tag
+            if t then
+                t.name = new_name
+            end
+        end
+    }
+end
 -- }}}
 
 -- {{{ Hide borders from windows when not tiled.
@@ -295,6 +310,7 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function() awful.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
+    awful.key({ modkey, "Shift"   }, "r", rename_tag),
     awful.key({ modkey, "Shift"   }, "q", function() awesome.quit() end),
 
     awful.key({ modkey,           }, "l",     function() awful.tag.incmwfact( 0.05) end),
