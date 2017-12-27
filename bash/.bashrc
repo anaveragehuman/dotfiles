@@ -20,6 +20,15 @@ for file in ~/.{aliases,exports,functions}; do
     fi
 done
 
+# Enable colors for ls, etc.
+for file in {"${HOME}/.dir_colors","/etc/DIR_COLORS"}; do
+    if [[ -f "$file" ]]; then
+        eval "$(dircolors -b "$file")"
+        break
+    fi
+done
+
+
 shopt -s autocd                                 # Name of directory executed as if it was argument to `cd`
 shopt -s cdable_vars                            # `cd` into values of variables
 shopt -s cdspell                                # Check and correct slight spelling errors
