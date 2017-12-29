@@ -84,7 +84,7 @@ abstracts = {
   ##
 
   # the basic styling of how to print message, $0 = nick mode, $1 = nick
-  msgnick = "%r<%n$0$1%r>%n %|";
+  msgnick = "<%n$0$1>%n %|";
 
   # message from you is printed. "msgownnick" specifies the styling of the
   # nick ($0 part in msgnick) and "ownmsgnick" specifies the styling of the
@@ -103,16 +103,16 @@ abstracts = {
   #  privmsgnick = "%K{msgnick  %R$*%K}%n";
 
   # $0 = nick mode, $1 = nick
-  ownmsgnick = "{msgnick $0 $1-}%W";
+  ownmsgnick = "%g{msgnick $0 $1-%g}%n";
   ownnick = "%r$*%n";
 
   # public message in channel, $0 = nick mode, $1 = nick
-  pubmsgnick = "{msgnick $0$1-}";
+  pubmsgnick = "%K{msgnick $0 $1-%K}%n";
   pubnick = "%w$*%n";
 
   # public message in channel meant for me, $0 = nick mode, $1 = nick
-  pubmsgmenick = "{msgnick $0$1-}";
-  menick = "%g$*%n";
+  pubmsgmenick = "%r{msgnick $0$1-%r}%n%1%9";
+  menick = "%w$*%n";
 
   # public highlighted message in channel
   # $0 = highlight color, $1 = nick mode, $2 = nick
