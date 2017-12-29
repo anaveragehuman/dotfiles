@@ -176,6 +176,8 @@ settings = {
     autocreate_own_query = "yes";
     theme = "88_madcows";
     emphasis_italics = "yes";
+    emphasis_multiword = "yes";
+    emphasis_replace = "no";
     hilight_color = "%g";
     hilight_act_color = "%R";
   };
@@ -204,8 +206,8 @@ settings = {
 
 aliases = { wc = "window close"; };
 hilights = (
-  { text = "AnAverageHuman"; nick = "yes"; word = "yes"; },
-  { text = "Average"; nick = "no"; word = "yes"; },
-  { text = "Human"; nick = "no"; word = "yes"; }
+  { text = "(AnAverageHuman)"; nick = "no"; word = "no"; },
+  { text = "(Average) -line"; nick = "yes"; word = "yes"; },
+  { text = "(Human)"; nick = "no"; word = "no"; }
 );
 ignores = ( { level = "CTCPS"; } );
