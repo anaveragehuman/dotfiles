@@ -180,6 +180,7 @@ settings = {
     emphasis_replace = "no";
     hilight_color = "%g";
     hilight_act_color = "%R";
+    activity_hide_level = "JOINS KICKS MODES NICKS PARTS QUITS TOPIC";
   };
   "irc/core" = { skip_motd = "yes"; };
   "perl/core/scripts" = {
