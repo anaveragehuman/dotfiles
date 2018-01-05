@@ -346,16 +346,6 @@ highlight nontext               ctermbg=black   ctermfg=gray
 
 highlight whitespace            ctermbg=red     ctermfg=red
 
-highlight NeomakeErrorSign      ctermbg=red
-highlight NeomakeWarningSign    ctermbg=magenta
-highlight NeomakeMessageSign    ctermbg=yellow
-highlight NeomakeInfoSign       ctermbg=blue
-
-highlight NeomakeError          ctermbg=red
-highlight NeomakeWarning        ctermbg=magenta
-highlight NeomakeMessage        ctermbg=yellow
-highlight NeomakeInfo           ctermbg=blue
-
 highlight Pmenu                 ctermbg=white   ctermfg=black
 highlight PmenuSel              ctermbg=green   ctermfg=black
 " }}}
