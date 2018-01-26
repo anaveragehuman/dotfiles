@@ -2,7 +2,7 @@
     email = "jeffrey@icurse.nl"
     name = Jeffrey Lin
 [push]
-    default = simple
+    default = current
     recurseSubmodules = check
 [core]
     autocrlf = input
