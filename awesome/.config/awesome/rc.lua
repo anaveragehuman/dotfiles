@@ -304,6 +304,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+    awful.key({ modkey,           }, "Tab", function () awful.spawn("rofi -modi window -show window") end),
     awful.key({ "Mod1",           }, "Tab", function () switcher.switch( 1, "Alt_L", "Tab", "ISO_Left_Tab") end),
     awful.key({ "Mod1", "Shift"   }, "Tab", function () switcher.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab") end),
 
@@ -324,8 +325,8 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
-    awful.key({ modkey }, "r", function() awful.spawn("rofi -modi run -show run -fuzzy -regex")   end),
-    awful.key({ modkey }, "p", function() awful.spawn("rofi -modi drun -show drun -fuzzy -regex") end),
+    awful.key({ modkey }, "r", function() awful.spawn("rofi -modi run -show run")   end),
+    awful.key({ modkey }, "p", function() awful.spawn("rofi -modi drun -show drun") end),
 
     awful.key({ modkey }, "x", function()
         awful.prompt.run {
@@ -336,7 +337,7 @@ globalkeys = gears.table.join(
         }
     end),
 
-    awful.key({ "Control", "Mod1" }, "l",     function () awful.util.spawn("physlock -ms") end),
+    awful.key({ "Control", "Mod1" }, "l",     function () awful.spawn("physlock -ms") end),
     awful.key({                   }, "Print", function () awful.spawn("bash -c 'python $HOME/scripts/userutil/mkscreenshot.py'") end),
     awful.key({ "Shift"           }, "Print", function () awful.spawn("bash -c 'python $HOME/scripts/userutil/mkscreenshot.py --select'") end)
     )
