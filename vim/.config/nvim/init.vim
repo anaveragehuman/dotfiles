@@ -272,7 +272,7 @@ if has("autocmd")
         autocmd BufReadPost  * if index(blacklist, &ft) < 0 | silent! undojoin | silent! retab! &shiftwidth
     augroup END
 
-    let blacklist=['markdown', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+    let blacklist=['markdown', 'diff', 'gitcommit', 'make', 'qf', 'help']
     autocmd BufWritePre * if index(blacklist, &ft) < 0 | retab! | StripWhitespace
 
     " Show trailing whitespace
