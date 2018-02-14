@@ -58,14 +58,14 @@ stty -ixon
 PROMPT_COMMAND=_prompt
 _prompt() {
     local EXIT=$?
-    local RED="\[$(tput setaf 1)\]"
-    local GREEN="\[$(tput setaf 2)\]"
-    #local YELLOW="\[$(tput setaf 3)\]"
-    local BLUE="\[$(tput setaf 4)\]"
-    local MAGENTA="\[$(tput setaf 5)\]"
-    local CYAN="\[$(tput setaf 6)\]"
-    local RESET="\[$(tput sgr0)\]"
-    local BOLD="\[$(tput bold)\]"
+    local RED="\\[$(tput setaf 1)\\]"
+    local GREEN="\\[$(tput setaf 2)\\]"
+    #local YELLOW="\\[$(tput setaf 3)\\]"
+    local BLUE="\\[$(tput setaf 4)\\]"
+    local MAGENTA="\\[$(tput setaf 5)\\]"
+    local CYAN="\\[$(tput setaf 6)\\]"
+    local RESET="\\[$(tput sgr0)\\]"
+    local BOLD="\\[$(tput bold)\\]"
     PS1=${BOLD}
 
     # Show exit code if not 0
@@ -75,11 +75,11 @@ _prompt() {
 
     # Show hostname if root; show hostname and username if ssh'd in; show username if != login name
     if [[ "$(id -u)" -eq 0 ]]; then
-        PS1+="${RED}\h "
+        PS1+="${RED}\\h "
     elif [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        PS1+="${BLUE}\u${RESET}${BOLD}@${BLUE}\h "
+        PS1+="${BLUE}\\u${RESET}${BOLD}@${BLUE}\\h "
     elif [[ "$(logname 2> /dev/null)" != "$(id -un)" ]]; then
-        PS1+="${BLUE}\u "
+        PS1+="${BLUE}\\u "
     fi
 
     # Show git branch and dirtiness if we are on one
@@ -96,7 +96,7 @@ _prompt() {
     fi
 
     # Current working directory
-    PS1+="${GREEN}\W${RESET} \$ "
+    PS1+="${GREEN}\\W${RESET} \$ "
 }
 # }}}
 
