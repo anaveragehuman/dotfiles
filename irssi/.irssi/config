@@ -176,13 +176,21 @@ settings = {
     autocreate_own_query = "yes";
     theme = "88_madcows";
     emphasis_italics = "yes";
-    emphasis_multiword = "yes";
-    emphasis_replace = "no";
     hilight_color = "%g";
     hilight_act_color = "%R";
     activity_hide_level = "JOINS KICKS MODES NICKS PARTS QUITS TOPIC";
+    emphasis_multiword = "yes";
+    emphasis_replace = "no";
+    window_history = "yes";
+    hilight_nick_matches_everywhere = "yes";
+    names_max_columns = "0";
+    windows_auto_renumber = "no";
   };
-  "irc/core" = { skip_motd = "yes"; };
+  "irc/core" = {
+    skip_motd = "yes";
+    ctcp_version_reply = "\"\"";
+    alternate_nick = "AnAverageHuman_";
+  };
   "perl/core/scripts" = {
     awl_all_disable = "no";
     awl_automode = "sbar";
@@ -202,10 +210,20 @@ settings = {
     awl_separator = "%N %N";
     awl_sort = "refnum";
     nickcolor_colors = "2 3 4 5 6 7 9 10 11 12 13";
+  "irc/dcc" = {
+    dcc_download_path = "/tmp";
+    dcc_file_create_mode = "600";
+    dcc_upload_path = "/tmp";
   };
 };
 
-aliases = { wc = "window close"; };
+aliases = {
+  wc = "window close";
+  reloadtheme = "script exec Irssi::themes_reload();";
+  cs = "msg ChanServ";
+  ns = "msg NickServ";
+  ms = "msg MemoServ";
+};
 hilights = (
   { text = "(AnAverageHuman)"; nick = "no"; word = "no"; },
   { text = "(Average) -line"; nick = "yes"; word = "yes"; },
