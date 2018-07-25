@@ -56,6 +56,19 @@ stty start undef
 stty -ixon
 
 # {{{ Prompt
+for file in {"/usr/lib/git-core/git-sh-prompt","/usr/share/git/git-prompt.sh"}; do
+    if [ -e "$file" ]; then
+        source "$file"
+        break
+    fi
+done
+
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="auto"
+
+
 PROMPT_COMMAND=_prompt
 _prompt() {
     local EXIT=$?
@@ -83,12 +96,7 @@ _prompt() {
         PS1+="${BLUE}\\u "
     fi
 
-    # Show git branch and dirtiness if we are on one
-    if git branch &> /dev/null; then
-        local ref=$(git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///')
-        local dirty=$([[ $(git status 2> /dev/null | tail -n1) != *"working"*"clean"* ]] && echo "*")
-        PS1+="${CYAN}($ref$dirty) "
-    fi
+    PS1+="${CYAN}$(__git_ps1 '(%s) ')"
 
     # Show virtualenv info if we are in one
     if [[ -n "$VIRTUAL_ENV" ]]; then
