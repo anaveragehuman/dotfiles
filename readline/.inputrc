@@ -5,6 +5,8 @@
 set show-all-if-ambiguous on
 set menu-complete-display-prefix on
 set completion-ignore-case on
+set completion-map-case on
+set match-hidden-files on
 
 set visible-stats on
 set colored-completion-prefix on
@@ -15,6 +17,10 @@ set bell-style none
 
 # Completed names which are symbolic links to directories have a slash appended.
 set mark-symlinked-directories on
+
+Tab: menu-complete
+
+set blink-matching-paren on
 
 # xterm: allow the use of the Home/End keys
 "\e[1~": beginning-of-line
