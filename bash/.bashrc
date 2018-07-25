@@ -43,6 +43,7 @@ shopt -s histappend                             # Append to history file instead
 shopt -s no_empty_cmd_completion                # Do not search for completions if line is empty
 
 
+unset HISTFILE
 export HISTCONTROL="erasedups:ignoreboth"
 export HISTFILESIZE=
 export HISTIGNORE="?:??:ls:[bf]g:exit:pwd:clear:mount:umount:history"
