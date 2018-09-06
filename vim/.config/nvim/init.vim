@@ -63,25 +63,21 @@ if has("nvim") || has("python3")
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_smart_case = 1
 
-    if !exists('g:deoplete#omni#input_patterns')
-        let g:deoplete#omni#input_patterns = {}
-    endif
-    let g:deoplete#omni#input_patterns.tex = '\\(?:'
-                \ .  '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
-                \ . '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
-                \ . '|hyperref\s*\[[^]]*'
-                \ . '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-                \ . '|(?:include(?:only)?|input)\s*\{[^}]*'
-                \ . '|\w*(gls|Gls|GLS)(pl)?\w*(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-                \ . '|includepdf(\s*\[[^]]*\])?\s*\{[^}]*'
-                \ . '|includestandalone(\s*\[[^]]*\])?\s*\{[^}]*'
-                \ . '|usepackage(\s*\[[^]]*\])?\s*\{[^}]*'
-                \ . '|documentclass(\s*\[[^]]*\])?\s*\{[^}]*'
-                \ .')'
-
     Plug 'zchee/deoplete-jedi'
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
+    let g:jedi#smart_auto_mappings = 0
+    let g:jedi#show_call_signatures = 0
+
+    Plug 'tweekmonster/deoplete-clang2'
 endif
 call plug#end()
+
+if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+endif
+let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+
 " }}}
 
 " {{{ Undo, Backups, Swap
