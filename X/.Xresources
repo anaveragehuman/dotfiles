@@ -2,7 +2,7 @@
 
 Xft.antialias:  true
 Xft.autohint:   false
-Xft.dpi:        112
+Xft.dpi:        157
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
@@ -19,8 +19,8 @@ Xft.rgba:       rgb
 
 
 ! {{{ Colors
-*background: black
-*foreground: white
+*background: rgb:ff/ff/d7
+*foreground: black
 
 *color0:  black
 *color1:  red3
@@ -45,7 +45,7 @@ xterm*utf8: 1
 
 xterm*renderFont:   true
 xterm*faceName:     Liberation Mono
-xterm*faceSize:     9
+xterm*faceSize:     7
 
 xterm*termName:         xterm-256color
 xterm*allowBoldFonts:   true
@@ -77,7 +77,7 @@ xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
 
 xterm*pointerColor:             black
 xterm*pointerColorBackground:   white
-xterm*cursorColor:              white
+xterm*cursorColor:              black
 xterm*cursorBlink:              true
 ! }}}
 
