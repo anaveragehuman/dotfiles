@@ -349,8 +349,8 @@ highlight PmenuSel              ctermbg=green   ctermfg=black
 "{{{ Theme
 let g:molokai_original = 1
 let g:rehash256 = 1
-set background=dark
-colorscheme nofrils-dark
+set background=light
+colorscheme nofrils-acme
 
 if has("vim")
     set t_Co=256
