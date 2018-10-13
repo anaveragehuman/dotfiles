@@ -192,6 +192,7 @@ settings = {
     skip_motd = "yes";
     ctcp_version_reply = "\"\"";
     alternate_nick = "AnAverageHuman_";
+    usermode = "+iw";
   };
   "perl/core/scripts" = {
     awl_all_disable = "no";
