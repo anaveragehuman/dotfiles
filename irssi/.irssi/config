@@ -211,8 +211,15 @@ settings = {
     awl_prefer_name = "yes";
     awl_sbar_maxlength = "yes";
     awl_separator = "%N %N";
-    awl_sort = "refnum";
+    awl_sort = "name=(status),-data_level,-last_line";
     nickcolor_colors = "2 3 4 5 6 7 9 10 11 12 13";
+    awl_shared_sbar = "OFF";
+    awl_viewer = "yes";
+    awl_maxcolumns = "10";
+    awl_no_mode_hint = "yes";
+    awl_mouse = "yes";
+    awl_hide_empty = "0";
+    awl_last_line_shade = "0";
     nicklist_pane_width = "20";
     nicklist_color = "no";
     nicklist_gone_sort = "yes";
