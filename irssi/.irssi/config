@@ -185,6 +185,7 @@ settings = {
     hilight_nick_matches_everywhere = "yes";
     names_max_columns = "0";
     windows_auto_renumber = "no";
+    beep_msg_level = "MSGS HILIGHT DCCMSGS";
   };
   "irc/core" = {
     skip_motd = "yes";
