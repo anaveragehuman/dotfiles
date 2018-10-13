@@ -186,6 +186,7 @@ settings = {
     names_max_columns = "0";
     windows_auto_renumber = "no";
     beep_msg_level = "MSGS HILIGHT DCCMSGS";
+    show_names_on_join = "no";
   };
   "irc/core" = {
     skip_motd = "yes";
@@ -211,6 +212,10 @@ settings = {
     awl_separator = "%N %N";
     awl_sort = "refnum";
     nickcolor_colors = "2 3 4 5 6 7 9 10 11 12 13";
+    nicklist_pane_width = "20";
+    nicklist_color = "no";
+    nicklist_gone_sort = "yes";
+  };
   "irc/dcc" = {
     dcc_download_path = "/tmp";
     dcc_file_create_mode = "600";
