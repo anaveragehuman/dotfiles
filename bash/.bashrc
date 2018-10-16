@@ -90,7 +90,7 @@ _prompt() {
     # Show hostname if root; show hostname and username if ssh'd in; show username if != login name
     if [[ "$(id -u)" -eq 0 ]]; then
         PS1+="${RED}\\h "
-    elif [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    elif [ -v SSH_CLIENT ] || [ -v SSH_TTY ]; then
         PS1+="${BLUE}\\u${RESET}${BOLD}@${BLUE}\\h "
     elif [[ "$(logname 2> /dev/null)" != "$(id -un)" ]]; then
         PS1+="${BLUE}\\u "
@@ -99,9 +99,8 @@ _prompt() {
     PS1+="${CYAN}$(__git_ps1 '(%s) ')"
 
     # Show virtualenv info if we are in one
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        local virt=$(basename "$VIRTUAL_ENV")
-        PS1+="${MAGENTA}[$virt] "
+    if [[ -v VIRTUAL_ENV ]]; then
+        PS1+="${MAGENTA}[$(basename "$VIRTUAL_ENV")] "
     fi
 
     # Current working directory
