@@ -58,6 +58,12 @@ if has("nvim") || has("python3")
     let g:ale_set_quickfix = 1
     let g:ale_sign_error = '>'
     let g:ale_sign_warning = '-'
+    let g:ale_fix_on_save = 1
+    let g:ale_fixers = {
+                \ '*':    ['trim_whitespace', 'remove_trailing_lines'],
+                \ 'c':    ['clang-format'],
+                \ 'cpp':  ['clang-format'],
+                \ }
 
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#enable_at_startup = 1
