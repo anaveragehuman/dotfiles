@@ -341,16 +341,6 @@ set sps=best,10
 set dictionary+=/usr/share/dict/words
 " }}}
 
-" {{{ Colors
-highlight normal                ctermbg=black   ctermfg=white
-highlight nontext               ctermbg=black   ctermfg=gray
-
-highlight whitespace            ctermbg=red     ctermfg=red
-
-highlight Pmenu                 ctermbg=white   ctermfg=black
-highlight PmenuSel              ctermbg=green   ctermfg=black
-" }}}
-
 "{{{ Theme
 let g:molokai_original = 1
 let g:rehash256 = 1
