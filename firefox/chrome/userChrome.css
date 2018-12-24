@@ -47,6 +47,7 @@
 
 #TabsToolbar, .tabbrowser-tab, menubar {
     color: #ffffff !important;
+    background-color: #000000 !important;
 }
 
 .tabbrowser-tab[selected] {
