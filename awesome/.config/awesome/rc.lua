@@ -210,18 +210,6 @@ local tasklist_buttons = gears.table.join(
     )
 -- }}}
 
--- {{{ Wallpaper
-local function set_wallpaper()
-    os.execute('/usr/bin/feh --randomize --bg-max --no-fehbg "'..wp_path..'"')
-end
-
-wp_timeout = 900
-wp_path = "/mnt/Data/sync/wallpapers/"
-wp_timer = gears.timer { timeout = wp_timeout }
-wp_timer:connect_signal("timeout", function() set_wallpaper() end)
-wp_timer:start()
--- }}}
-
 -- {{{ Mouse bindings
 root.buttons(
     gears.table.join(
@@ -234,8 +222,6 @@ root.buttons(
 
 -- {{{ Adding and removing screens
 awful.screen.connect_for_each_screen(function(s)
-    set_wallpaper()
-
     -- Each screen has its own tag table.
     awful.tag({"1", "2", "3", "4", "5", "6", "7", "8", "9"}, s, awful.layout.layouts[1])
 
