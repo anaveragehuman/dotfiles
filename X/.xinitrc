@@ -28,6 +28,9 @@ export XMODIFIERS=@im=fcitx
 # Swap Esc and Caps Lock
 setxkbmap -option caps:swapescape
 
+# Gotta go fast
+xset r rate 180 80
+
 # Fixes https://github.com/ValveSoftware/steam-for-linux/issues/1025
 export STEAM_FRAME_FORCE_CLOSE=1
 
@@ -50,4 +53,3 @@ exec awesome
 #exec xterm -geometry 80x30+0+0 -name login
 
 sessreg -d -l tty7 "$USER"
-
