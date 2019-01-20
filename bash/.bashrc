@@ -104,7 +104,7 @@ _prompt() {
     fi
 
     # Current working directory
-    PS1+="${GREEN}\\W${RESET} \$ "
+    PS1+="${GREEN}\\W${RESET} \\$ "
 }
 # }}}
 
