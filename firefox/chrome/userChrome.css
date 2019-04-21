@@ -35,19 +35,15 @@
 :root {
     --toolbarbutton-border-radius: 0px !important; /* make things sharper on the edges. */
     transition: 0s;
-    border-radius: 0px !important;
-
-    --chrome-color: #000000 !important;
-    --chrome-background-color: #171a1c !important; /*includes tabstrip background*/
-    --chrome-secondary-background-color: #ffffff !important; /*includes toolbar, urlbar*/
-    --url-and-searchbar-background-color: #efefef !important;
-    --chrome-nav-bar-controls-border-color: #dddddd !important; /*urlbar border*/
-    --tab-hover-background-color: #3f3f3f !important;
 }
 
 #TabsToolbar, .tabbrowser-tab, #toolbar-menubar {
     color: #ffffff !important;
     background-color: #000000 !important;
+}
+
+.tabs-newtab-button {
+    fill: #ffffff !important;
 }
 
 .tabbrowser-tab[selected] {
@@ -58,7 +54,6 @@
 #editBMPanel_tagsSelector[collapsed="true"] {
     display: none !important;
 }
-
 
 /*----Container tweaks----*/
 
@@ -77,10 +72,9 @@
     font-size: 85% !important;
 }
 
-#nav-bar {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    border-top-width: 0px !important;
+#urlbar, .searchbar-textbox {
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /*--More options for Bookmark panel--*/
