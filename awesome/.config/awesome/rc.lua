@@ -17,9 +17,6 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup.widget")
 require("awful.hotkeys_popup.keys")
 
--- Switcher preview
-local switcher = require("awesome-switcher-preview")
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to another config.
 if awesome.startup_errors then
@@ -291,8 +288,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab", function () awful.spawn("rofi -modi window -show window") end),
-    awful.key({ "Mod1",           }, "Tab", function () switcher.switch( 1, "Alt_L", "Tab", "ISO_Left_Tab") end),
-    awful.key({ "Mod1", "Shift"   }, "Tab", function () switcher.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab") end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function() awful.spawn(terminal) end),
