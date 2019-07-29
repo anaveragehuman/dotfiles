@@ -154,20 +154,11 @@ menubar.utils.terminal = terminal
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(" | %a %F %R ")
+mytextclock = wibox.widget.textclock("%a %F %R")
 
--- Create a battery widget
-local function battery()
-    fh = io.popen("acpi | cut -d, -f 2,3 -", "r")
-    batterywidget:set_text(" |" .. fh:read("*l") .. " | ")
-    fh:close()
-end
-
-batterywidget = wibox.widget.textbox()
-batterywidgettimer = gears.timer({ timeout = 30 })
-batterywidgettimer:connect_signal("timeout", function() battery() end)
-batterywidgettimer:start()
-battery()
+batterywidget = awful.widget.watch('acpi', 30, function(widget, stdout)
+    widget:set_text(stdout:gsub('[^,]+, ', '', 1))
+end)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -255,10 +246,12 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
+            wibox.widget.textbox('  |  '),
             mytextclock,
+            wibox.widget.textbox('  |  '),
             batterywidget,
+            wibox.widget.textbox('  |  '),
             s.mylayoutbox,
         },
     }
