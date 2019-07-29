@@ -298,8 +298,8 @@ globalkeys = gears.table.join(
     end),
 
     awful.key({ "Control", "Mod1" }, "l",     function () awful.spawn("physlock -ms") end),
-    awful.key({                   }, "Print", function () awful.spawn("bash -c 'python $HOME/scripts/userutil/mkscreenshot.py'") end),
-    awful.key({ "Shift"           }, "Print", function () awful.spawn("bash -c 'python $HOME/scripts/userutil/mkscreenshot.py --select'") end)
+    awful.key({                   }, "Print", function () awful.spawn(os.getenv("HOME") .. "/bin/screenshot") end),
+    awful.key({ "Shift"           }, "Print", function () awful.spawn(os.getenv("HOME") .. "/bin/screenshot --select") end)
     )
 
 clientkeys = gears.table.join(
