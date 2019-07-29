@@ -49,7 +49,7 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "/theme/theme.lua")
 
 terminal = "xterm"
-editor = "nvim" or "vim" or os.getenv("EDITOR")
+editor = os.getenv("EDITOR") or "nvim" or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Usually, Mod4 is the key with a logo between Control and Alt.
