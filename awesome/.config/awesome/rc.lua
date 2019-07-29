@@ -285,7 +285,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
-    awful.key({ modkey }, "r", function() awful.spawn("rofi -modi run -show run")   end),
+    awful.key({ modkey }, "r", function() awful.spawn("rofi -modi run -show run -no-auto-select")   end),
     awful.key({ modkey }, "p", function() awful.spawn("rofi -modi drun -show drun") end),
 
     awful.key({ modkey }, "x", function()
