@@ -2,7 +2,7 @@
 $always_view_file_via_temporary = 1;
 $bibtex_use = 1;
 $force_mode = 1;
-$pdflatex = 'pdflatex -synctex=1 %O %S';
+$pdflatex = 'pdflatex -shell-escape -synctex=1 %O %S';
 $pdf_mode = 1;
 $pdf_previewer = 'start xdg-open %O %S';
 $silent = 1;
