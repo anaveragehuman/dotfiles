@@ -50,22 +50,6 @@ theme.tasklist_bg_focus = "#ffffff"
 -- menu_[border_color|border_width]
 theme.menu_height = dpi(15)
 
--- Generate taglist squares:
-local taglist_square_size = dpi(1)
---theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
---  taglist_square_size, theme.fg_normal
---)
---theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
---  taglist_square_size, theme.fg_normal
---)
-
--- Variables set for theming the menu:
--- menu_[bg|fg]_[normal|focus]
--- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path.."default/submenu.png"
-theme.menu_height       = 15
-theme.menu_width        = 100
-
 -- Add as many variables as you wish and access them by using beautiful.variable in rc.lua.
 --theme.bg_widget = "#cc0000"
 

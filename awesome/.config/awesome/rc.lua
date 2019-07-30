@@ -93,25 +93,6 @@ local function rename_tag()
 end
 -- }}}
 
--- {{{ Hide borders from windows when not tiled.
-for s = 1, screen.count() do
-    screen[s]:connect_signal("arrange", function ()
-        local clients = awful.client.visible(s)
-        local layout  = awful.layout.getname(awful.layout.get(s))
-
-        -- No borders with only one visible client or in maximized layout
-        if #clients > 1 and layout ~= "max" then
-            for _, c in pairs(clients) do -- Floaters always have borders
-                if not awful.client.floating.get(c) or layout == "floating" then
-                    c.border_width = beautiful.border_width
-                    c.border_color = beautiful.border_focus
-                end
-            end
-        end
-    end)
-end
--- }}}
-
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
@@ -401,17 +382,21 @@ awful.rules.rules = {
     { rule_any = {
             instance = {
                 "copyq",    -- Includes session name in class.
+                "pinentry",
+                "pystopwatch",
             },
             class = {
                 "Arandr",
+                "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
                 "Wpa_gui",
                 "pinentry",
-                "pyStopwatch"
             },
 
             name = {
                 "Event Tester",  -- xev.
             },
+            role = {
+            }
     }, properties = { floating = true }},
 }
 -- }}}
