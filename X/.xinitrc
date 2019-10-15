@@ -43,9 +43,6 @@ compton -b --no-dock-shadow --no-dnd-shadow --vsync none --sw-opti \
     --glx-use-copysubbuffermesa --glx-use-gpushader4 &
 conky &
 redshift &
-xbacklight -set 75 &
-fcitx &
-transmission-qt --minimized &
 exec awesome
 
 ## Fallback
