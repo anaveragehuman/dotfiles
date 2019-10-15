@@ -103,6 +103,11 @@ _prompt() {
         PS1+="${MAGENTA}[$(basename "$VIRTUAL_ENV")] "
     fi
 
+    # Show number of jobs if there are any (active or suspended)
+    if [[ -n "$(jobs -p)" ]]; then
+        PS1+="${BLUE}\\jj "
+    fi
+
     # Current working directory
     PS1+="${GREEN}\\W${RESET} \\$ "
 }
