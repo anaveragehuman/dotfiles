@@ -11,6 +11,7 @@ local wibox = require("wibox")
 
 -- Theme handling library
 local beautiful = require("beautiful")
+awesome.set_preferred_icon_size(64)
 
 -- Notification library
 local naughty = require("naughty")
@@ -100,7 +101,7 @@ myawesomemenu = {
     { "manual", terminal .. " -e man awesome" },
     { "edit config", editor_cmd .. " " .. awesome.conffile },
     { "restart", awesome.restart },
-    { "quit", awesome.quit },
+    { "quit", function() awesome.quit() end },
 }
 
 sessionmenu = {
@@ -174,6 +175,8 @@ root.buttons(
 -- }}}
 
 -- {{{ Adding and removing screens
+awful.screen.set_auto_dpi_enabled(true)
+
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({"1", "2", "3", "4", "5", "6", "7", "8", "9"}, s, awful.layout.layouts[1])
@@ -189,7 +192,9 @@ awful.screen.connect_for_each_screen(function(s)
             awful.button({ }, 3, function () awful.layout.inc(-1) end),
             awful.button({ }, 4, function () awful.layout.inc( 1) end),
             awful.button({ }, 5, function () awful.layout.inc(-1) end)
-        ))
+            )
+        )
+
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
@@ -205,7 +210,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", height = 30, screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
