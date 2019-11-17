@@ -31,6 +31,9 @@ setxkbmap -option caps:swapescape
 # Gotta go fast
 xset r rate 180 80
 
+# don't make Qt programs huge
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+
 # Fixes https://github.com/ValveSoftware/steam-for-linux/issues/1025
 export STEAM_FRAME_FORCE_CLOSE=1
 
