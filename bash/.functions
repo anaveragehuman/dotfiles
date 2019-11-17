@@ -16,11 +16,7 @@ cd() {
 }
 
 pb() {
-    curl -F "c=@${1:--}" https://ptpb.pw/
-}
-
-pbs() {
-    curl -F "c=@${1:--}" -F sunset=3600 -F p=1 https://ptpb.pw/
+    curl -F "file=@${1:--}" https://0x0.st/
 }
 
 genpasswd() {
