@@ -63,40 +63,40 @@ for file in {"/usr/lib/git-core/git-sh-prompt","/usr/share/git/git-prompt.sh"}; 
     fi
 done
 
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM="auto"
+#GREEN="\\[$(tput setaf 2)\\]"
+#YELLOW="\\[$(tput setaf 3)\\]"
+#BOLD="\\[$(tput bold)\\]"
 
-
-PROMPT_COMMAND=_prompt
-_prompt() {
-    local EXIT=$?
+# first argument should be exit code of last command
+_prompt_before() {
     local RED="\\[$(tput setaf 1)\\]"
-    local GREEN="\\[$(tput setaf 2)\\]"
-    #local YELLOW="\\[$(tput setaf 3)\\]"
-    local BLUE="\\[$(tput setaf 4)\\]"
-    local MAGENTA="\\[$(tput setaf 5)\\]"
-    local CYAN="\\[$(tput setaf 6)\\]"
     local RESET="\\[$(tput sgr0)\\]"
-    local BOLD="\\[$(tput bold)\\]"
-    PS1=${BOLD}
+    local PS1=
 
     # Show exit code if not 0
-    if [[ $EXIT != 0 ]]; then
-        PS1+="${RED}$EXIT "
+    if [[ $1 != 0 ]]; then
+        PS1+="${RED}$1 "
     fi
 
     # Show hostname if root; show hostname and username if ssh'd in; show username if != login name
     if [[ "$(id -u)" -eq 0 ]]; then
         PS1+="${RED}\\h "
     elif [ -v SSH_CLIENT ] || [ -v SSH_TTY ]; then
-        PS1+="${BLUE}\\u${RESET}${BOLD}@${BLUE}\\h "
+        PS1+="${BLUE}\\u${RESET}@${BLUE}\\h "
     elif [[ "$(logname 2> /dev/null)" != "$(id -un)" ]]; then
         PS1+="${BLUE}\\u "
     fi
 
-    PS1+="${CYAN}$(__git_ps1 '(%s) ')"
+    PS1+="${RESET}"
+    echo "$PS1"
+}
+
+_prompt_after() {
+    local BLUE="\\[$(tput setaf 4)\\]"
+    local MAGENTA="\\[$(tput setaf 5)\\]"
+    local CYAN="\\[$(tput setaf 6)\\]"
+    local RESET="\\[$(tput sgr0)\\]"
+    local PS1=
 
     # Show virtualenv info if we are in one
     if [[ -v VIRTUAL_ENV ]]; then
@@ -109,8 +109,30 @@ _prompt() {
     fi
 
     # Current working directory
-    PS1+="${GREEN}\\W${RESET} \\$ "
+    PS1+="${CYAN}\\W${RESET} \\$ "
+
+    echo "$PS1"
 }
+
+if [[ "$(declare -fF '__git_ps1')" ]]; then
+    _prompt() {
+        local exit=$?
+        local GIT_PS1_SHOWDIRTYSTATE=1
+        local GIT_PS1_SHOWSTASHSTATE=1
+        local GIT_PS1_SHOWUNTRACKEDFILES=1
+        local GIT_PS1_SHOWUPSTREAM="auto"
+        local GIT_PS1_SHOWCOLORHINTS=1
+
+        __git_ps1 "$(_prompt_before $exit)" "$(_prompt_after)" "(%s) "
+    }
+else
+    _prompt() {
+        local exit=$?
+        PS1="$(_prompt_before $exit)$(_prompt_after)"
+    }
+fi
+PROMPT_COMMAND='_prompt'
+
 # }}}
 
 # vim:foldmethod=marker
