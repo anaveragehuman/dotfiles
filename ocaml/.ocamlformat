@@ -1,0 +1,7 @@
+break-cases = toplevel
+break-string-literals = newlines
+extension-sugar = always
+let-open = auto
+parse-docstrings
+type-decl = sparse
+wrap-comments

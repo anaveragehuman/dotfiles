@@ -1,0 +1,3 @@
+#require "lambda-term";;
+let prompt = LTerm_text.(eval [S "ocaml"; B_fg (LTerm_style.cyan); S " # "]) in
+UTop.prompt := fst (React.S.create prompt);;
