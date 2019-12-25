@@ -13,18 +13,8 @@ endif
 
 call plug#begin()
 Plug 'robertmeta/nofrils'
-Plug 'tomasr/molokai'
 
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-let g:goyo_height=95
-
-Plug 'AndrewRadev/linediff.vim'
 Plug 'tommcdo/vim-exchange'
-
-Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
@@ -37,14 +27,8 @@ let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_sections = ["part", "chapter", "section", "subsection",
             \ "subsubsection", "paragraph", "subparagraph"]
 
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_resolve_symlinks = 1
-
 Plug 'mbbill/undotree'
 nnoremap U :UndotreeToggle<CR>
-
-Plug 'sophacles/vim-processing'
-let g:processing_fold = 1
 
 Plug 'tommcdo/vim-lion'
 let g:lion_squeeze_spaces=1
