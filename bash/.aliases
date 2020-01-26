@@ -4,9 +4,6 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-
 alias cp='rsync -aP'
 alias mkdir='mkdir -p'
 alias ping='ping -c 10'
-
