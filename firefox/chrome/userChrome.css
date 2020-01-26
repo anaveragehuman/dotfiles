@@ -2,19 +2,17 @@
 /* chrome://browser/content/browser.xul */
 
 /* Remove the "Sign in to sync" from top of photon hamburger menu. */
-#appMenu-fxa-container, #appMenu-fxa-container + toolbarseparator {
+#appMenu-fxa-status, #appMenu-fxa-status + toolbarseparator {
     display: none !important;
 }
 
 /* Remove things */
-
 .tabbrowser-tab:not([pinned]) #pocket-button-box,
 .tabbrowser-tab:not(:hover) .close-icon,
 #pageActionButton,
 #forward-button[disabled="true"],
 #back-button[disabled="true"],
-.private-browsing-indicator,
-.urlbar-textbox-container > .urlbar-history-dropmarker {
+.private-browsing-indicator {
     display: none !important;
 }
 
@@ -32,22 +30,9 @@
     display: none !important;
 }
 
-:root {
-    --toolbarbutton-border-radius: 0px !important; /* make things sharper on the edges. */
-    transition: 0s;
-}
-
-#TabsToolbar, .tabbrowser-tab, #toolbar-menubar {
+arrowscrollbox {
     color: #ffffff !important;
     background-color: #000000 !important;
-}
-
-.tabs-newtab-button {
-    fill: #ffffff !important;
-}
-
-.tabbrowser-tab[selected] {
-    color: #000000 !important;
 }
 
 /* collapse separation between keyword and tags */
