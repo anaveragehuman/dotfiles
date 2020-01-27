@@ -1,0 +1,4 @@
+git clone --bare https://github.com/AnAverageHuman/dotfiles ~/.cfg
+git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
+source ~/.bashrc
+config config --local status.showUntrackedFiles no
