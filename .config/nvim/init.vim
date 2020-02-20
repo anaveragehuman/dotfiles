@@ -1,15 +1,5 @@
-" File:     ~/.vim/vimrc
-
-let g:python3_host_prog = "/usr/bin/python3"
-let g:python_host_prog = "/usr/bin/python2"
-
 " {{{ Plugins
 " vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 
 call plug#begin()
 Plug 'robertmeta/nofrils'
@@ -121,7 +111,6 @@ set shiftround
 
 set linebreak                   " Don't wrap words by default
 set wrap
-set nolist
 set textwidth=80
 set wrapmargin=0
 set colorcolumn=+1
@@ -138,8 +127,6 @@ set preserveindent
 set tabstop=4
 set softtabstop=0
 set shiftwidth=4
-set list
-set listchars=tab:»\ ,extends:»
 
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.log,.aux,.bbl,.blg,.idx,.ilg,.ind,.out,.pdf
 
@@ -290,9 +277,6 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 nnoremap <C-Down> ddp
 nnoremap <C-Up> ddkP
 
-inoremap <C-e> <Esc>A
-inoremap <C-a> <Esc>I
-
 vnoremap Q gw
 nnoremap Q gqap
 
@@ -300,11 +284,6 @@ inoremap {<cr> {<cr>}<c-o>O
 inoremap [<cr> [<cr>]<c-o>O
 inoremap (<cr> (<cr>)<c-o>O
 
-nnoremap <leader>W :w !sudo tee %<CR><CR>
-nnoremap <leader>M :make<CR>
-
-" Very magic mode, global replace, ask for confirmation
-nnoremap <leader>/ :%s/\v/gc<Left><Left><Left>
 
 "Sort selection on a line
 vnoremap <F2> d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
@@ -326,13 +305,10 @@ set dictionary+=/usr/share/dict/words
 " }}}
 
 "{{{ Theme
-let g:molokai_original = 1
-let g:rehash256 = 1
 set background=light
 colorscheme nofrils-acme
 
 if has("vim")
-    set t_Co=256
     set nocompatible
     set ttyfast
 endif
