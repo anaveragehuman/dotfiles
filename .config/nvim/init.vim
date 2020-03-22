@@ -12,19 +12,19 @@ Plug 'wellle/targets.vim'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['tex', 'latex']
 
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', { 'for': 'tex' }
 let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_sections = ["part", "chapter", "section", "subsection",
             \ "subsubsection", "paragraph", "subparagraph"]
 
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 nnoremap U :UndotreeToggle<CR>
 
 Plug 'tommcdo/vim-lion'
 let g:lion_squeeze_spaces=1
 
 if has("nvim") || has("python3")
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     let g:ale_completion_enabled = 1
     let g:ale_lint_on_text_changed = 'never'
     let g:ale_open_list = 1
@@ -39,18 +39,11 @@ if has("nvim") || has("python3")
                 \ 'cpp':  ['clang-format'],
                 \ }
 
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_smart_case = 1
-
-    Plug 'zchee/deoplete-jedi'
-    let g:jedi#completions_enabled = 0
-    let g:jedi#auto_vim_configuration = 0
-    let g:jedi#smart_auto_mappings = 0
-    let g:jedi#show_call_signatures = 0
-
-    Plug 'tweekmonster/deoplete-clang2'
 endif
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+
 call plug#end()
 
 if !exists('g:deoplete#omni#input_patterns')
