@@ -249,15 +249,6 @@ if has("autocmd")
 endif
 " }}}
 
-" {{{ Statusline
-set statusline=
-set statusline+=%1*%3v                     "virtual column number
-set statusline+=\ %<\%F\                   "full path
-set statusline+=%m                         "modified flag
-set statusline+=%r                         "read only flag
-set statusline+=%=%P                       "percentage
-" }}}
-
 " {{{ Key Remaps
 nnoremap , :
 vnoremap , :
