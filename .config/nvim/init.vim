@@ -14,6 +14,7 @@ let g:polyglot_disabled = ['tex', 'latex']
 
 Plug 'lervag/vimtex', { 'for': 'tex' }
 let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_manual = 1
 let g:vimtex_fold_sections = ["part", "chapter", "section", "subsection",
             \ "subsubsection", "paragraph", "subparagraph"]
 
