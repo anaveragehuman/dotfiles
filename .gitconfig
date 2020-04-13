@@ -25,11 +25,6 @@
 
     rbase = rebase --autosquash --autostash
     pushf = push --force-with-lease
-
-    ctags = !.git/hooks/ctags
-    anw = !git diff -U0 -w --no-color -- \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero "#"
-
-  rewrite-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch -f --env-filter \"if [ $`echo $VAR` = \\\"$OLD\\\" ]; then export $VAR=\\\"$NEW\\\"; fi\" $@; }; f "
 [diff]
     renames = copies
     mnemonicprefix = true
