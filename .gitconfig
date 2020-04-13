@@ -16,8 +16,9 @@
 [alias]
     all = "!f() { ls -R -d */.git | xargs -I{} sh -c \"echo {} && git -C {}/../ $1\"; }; f"
 
-    ls = log --pretty=format:"%C(yellow)%h\\ %C(magenta)%G?%Cred%d\\ %Creset%s%Cgreen\\ [%aN]" --decorate
-    ll = log --pretty=format:"%C(yellow)%h\\ %C(magenta)%G?%Cred%d\\ %Creset%s%Cgreen\\ [%aN]" --decorate --numstat
+    ls = log --oneline
+    ll = log --decorate --numstat --oneline
+    lg = log --graph --oneline
     wdiff = diff --color-words
 
     dc = diff --cached
@@ -27,8 +28,6 @@
 
     ctags = !.git/hooks/ctags
     anw = !git diff -U0 -w --no-color -- \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero "#"
-    lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 
   rewrite-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch -f --env-filter \"if [ $`echo $VAR` = \\\"$OLD\\\" ]; then export $VAR=\\\"$NEW\\\"; fi\" $@; }; f "
 [diff]
