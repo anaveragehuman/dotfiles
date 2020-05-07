@@ -4,8 +4,4 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
-alias cp='rsync -aP'
-alias mkdir='mkdir -p'
-alias ping='ping -c 10'
-
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
