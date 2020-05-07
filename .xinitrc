@@ -37,9 +37,7 @@ export STEAM_FRAME_FORCE_CLOSE=1
 sessreg -a -l tty7 "$USER"
 
 # Start window manager
-compton -b --no-dock-shadow --no-dnd-shadow --vsync none --sw-opti \
-    --no-fading-openclose --backend glx --glx-no-stencil \
-    --glx-use-copysubbuffermesa --glx-use-gpushader4 &
+picom --experimental-backends -b &
 conky &
 redshift &
 awesome
