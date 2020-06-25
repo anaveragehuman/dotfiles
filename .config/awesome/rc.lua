@@ -53,9 +53,6 @@ end
 -- {{{ Variable definitions
 beautiful.init(gears.filesystem.get_configuration_dir() .. "/theme/theme.lua")
 
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nvim" or "vim"
-editor_cmd = terminal .. " -e " .. editor
 
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- To change it, use xmodmap or other tools to remap Mod4 to another key.
@@ -92,37 +89,6 @@ local function rename_tag()
         end
     }
 end
--- }}}
-
--- {{{ Menu
--- Create a laucher widget and a main menu
-myawesomemenu = {
-    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-    { "manual", terminal .. " -e man awesome" },
-    { "edit config", editor_cmd .. " " .. awesome.conffile },
-    { "restart", awesome.restart },
-    { "quit", function() awesome.quit() end },
-}
-
-sessionmenu = {
-    { "lock", "physlock -ms" },
-    { "reboot", "sudo shutdown -r now" },
-    { "power off", "sudo shutdown -h now" },
-}
-
-mymainmenu = awful.menu(
-    {
-        items = {
-            { "awesome", myawesomemenu, beautiful.awesome_icon },
-            { "session", sessionmenu },
-    }})
-
-mylauncher = awful.widget.launcher({
-        image = beautiful.awesome_icon,
-        menu = mymainmenu
-    })
-
-menubar.utils.terminal = terminal
 -- }}}
 
 -- {{{ Wibar
@@ -167,7 +133,6 @@ local tasklist_buttons = gears.table.join(
 -- {{{ Mouse bindings
 root.buttons(
     gears.table.join(
-        awful.button({ }, 3, function() mymainmenu:toggle() end),
         awful.button({ }, 4, awful.tag.viewnext),
         awful.button({ }, 5, awful.tag.viewprev)
         )
@@ -217,7 +182,6 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
