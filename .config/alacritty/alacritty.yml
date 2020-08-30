@@ -1,5 +1,6 @@
 window:
   dynamic_padding: true
+  dynamic_title: true
 
 font:
   normal:
@@ -35,10 +36,8 @@ colors:
     white:   '#ffffff'
 
 
-visual_bell:
+bell:
   duration: 0
-
-dynamic_title: true
 
 live_config_reload: false
 
