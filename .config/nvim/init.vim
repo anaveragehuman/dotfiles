@@ -10,7 +10,6 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
 Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['tex', 'latex']
 
 Plug 'lervag/vimtex', { 'for': 'tex' }
 let g:vimtex_fold_enabled = 1
@@ -31,8 +30,6 @@ if has("nvim") || has("python3")
     let g:ale_open_list = 1
     let g:ale_set_loclist = 0
     let g:ale_set_quickfix = 1
-    let g:ale_sign_error = '>'
-    let g:ale_sign_warning = '-'
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
                 \ '*':    ['trim_whitespace', 'remove_trailing_lines'],
@@ -47,10 +44,9 @@ let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
-if !exists('g:deoplete#omni#input_patterns')
-    let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+call deoplete#custom#var('omni', 'input_patterns', {
+	\ 'tex': g:vimtex#re#deoplete,
+	\ })
 
 " }}}
 
@@ -76,7 +72,7 @@ let g:netrw_winsize = 25        " Set width to 25% of page
 
 " {{{ Folds
 set foldenable
-set foldlevelstart=0
+set foldlevelstart=10
 set foldnestmax=10
 set foldmethod=syntax
 set modelines=1
@@ -86,8 +82,6 @@ nnoremap <SPACE> za
 " {{{ General
 let g:tex_flavor = 'latex'
 
-set number
-set relativenumber
 set scrolloff=1
 set sidescrolloff=5
 set display+=lastline
@@ -177,21 +171,7 @@ nnoremap <leader>K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " }}}
 
 " {{{ Functions and Commands
-function! StripWhitespace()
-    let w = winsaveview()
-    %s/\s\+$//e
-    call winrestview(w)
-endfunction
-
-command! StripWhitespace silent! call StripWhitespace()
-
-function! Reindent()
-    let w = winsaveview()
-    normal gg=G
-    call winrestview(w)
-endfunction
-
-nnoremap <leader>= :call Reindent()<CR>
+nnoremap <leader>= gg=G<C-o>     " reindent file
 
 function! Spelling()
     setlocal spell
@@ -220,48 +200,15 @@ if has("autocmd")
                     \ \n endif"
     augroup END
 
-    augroup enter_esc
-        autocmd!
-        autocmd BufReadPost quickfix nnoremap <buffer> <Esc>    :q<CR>
-        autocmd CmdWinEnter *        nnoremap <buffer> <Esc>    :q<CR>
-        autocmd FileType    netrw    nnoremap <buffer> <Esc>    :e #<CR>
-    augroup END
-
     augroup fast_esc
         autocmd!
-        autocmd InsertEnter * set timeoutlen=500
+        autocmd InsertEnter * set timeoutlen=150
         autocmd InsertLeave * set timeoutlen=1000
-    augroup END
-
-    " Convert tabs to spaces when reading file
-    augroup convert
-        autocmd!
-        autocmd BufReadPost  * if index(blacklist, &ft) < 0 | silent! undojoin | silent! retab! &shiftwidth
-    augroup END
-
-    let blacklist=['markdown', 'diff', 'gitcommit', 'make', 'qf', 'help']
-    autocmd BufWritePre * if index(blacklist, &ft) < 0 | retab! | StripWhitespace
-
-    " Show trailing whitespace
-    augroup whitespace
-        autocmd!
-        autocmd VimEnter,WinEnter * match whitespace /\s\+$/
     augroup END
 endif
 " }}}
 
 " {{{ Key Remaps
-nnoremap , :
-vnoremap , :
-nnoremap : ,
-vnoremap : ,
-
-nnoremap <expr> j v:count ? 'j' : 'gj'
-nnoremap <expr> k v:count ? 'k' : 'gk'
-
-nnoremap <C-Down> ddp
-nnoremap <C-Up> ddkP
-
 vnoremap Q gw
 nnoremap Q gqap
 
