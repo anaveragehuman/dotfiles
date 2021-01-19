@@ -3,38 +3,29 @@
     name = Jeffrey Lin
 [push]
     default = current
-    recurseSubmodules = check
-[core]
-    autocrlf = input
-    whitespace = trailing-space,space-before-tab
-    excludesfile = ~/.gitignore_global
-[color]
-    ui = auto
 [branch]
-    autosetuprebase = always
-    autosetupmerge = true
+    autoSetupRebase = always
+    autoSetupMerge = true
 [alias]
-    all = "!f() { ls -R -d */.git | xargs -I{} sh -c \"echo {} && git -C {}/../ $1\"; }; f"
-
     ls = log --oneline
     ll = log --decorate --numstat --oneline
     lg = log --graph --oneline
-    wdiff = diff --color-words
 
+    wdiff = diff --color-words
     dc = diff --cached
 
-    rbase = rebase --autosquash --autostash
     pushf = push --force-with-lease
 [diff]
     renames = copies
-    mnemonicprefix = true
+    mnemonicPrefix = true
     wordRegex = [[:alnum:]_]+|[^[:alnum:]_[:space:]]+
 [rerere]
     enabled = true
-[merge]
-    stat = true
+[rebase]
+    autoSquash = true
+    autoStash = true
 [init]
-    templatedir = ~/.git-templates
+    templateDir = ~/.git-templates
 [commit]
     gpgsign = true
 [filter "lfs"]
@@ -43,8 +34,4 @@
     process = git-lfs filter-process
     required = true
 [transfer]
-    fsckobjects = true
-[fetch]
-    fsckobjects = true
-[receive]
-    fsckobjects = true
+    fsckObjects = true
