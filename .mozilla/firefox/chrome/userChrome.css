@@ -1,17 +1,12 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 /* chrome://browser/content/browser.xul */
 
-/* Remove the "Sign in to sync" from top of photon hamburger menu. */
-#appMenu-fxa-status, #appMenu-fxa-status + toolbarseparator {
-    display: none !important;
-}
-
 /* Remove things */
-.tabbrowser-tab:not([pinned]) #pocket-button-box,
 .tabbrowser-tab:not(:hover) .close-icon,
 #pageActionButton,
 #forward-button[disabled="true"],
 #back-button[disabled="true"],
+#reload-button[disabled="true"],
 .private-browsing-indicator {
     display: none !important;
 }
@@ -20,24 +15,14 @@
 #context-sendimage,
 #context-setWallpaper,
 #context-setDesktopBackground,
-#context-sendlinktodevice,
-#context-sep-sendlinktodevice,
 #context-bookmarklink,
-#context-navigation,
-#context-sep-navigation,
-#context-sendpagetodevice,
-#context-sep-sendpagetodevice {
+#context-navigation {
     display: none !important;
 }
 
-arrowscrollbox {
+#TabsToolbar-customization-target {
     color: #ffffff !important;
     background-color: #000000 !important;
-}
-
-/* collapse separation between keyword and tags */
-#editBMPanel_tagsSelector[collapsed="true"] {
-    display: none !important;
 }
 
 /*----Container tweaks----*/
@@ -57,17 +42,23 @@ arrowscrollbox {
     font-size: 85% !important;
 }
 
-#urlbar, .searchbar-textbox {
-  border: none !important;
-  box-shadow: none !important;
+/* Remove rounded tabs in Proton */
+.tab-background, #scrollbutton-up, #scrollbutton-down {
+    border-radius: 0px !important;
+    margin-block: 0px !important;
 }
 
-/*--More options for Bookmark panel--*/
-#editBMPanel_keywordRow, #editBMPanel_descriptionRow, #editBMPanel_locationRow, #editBMPanel_loadInSidebarCheckbox {
-    visibility: visible;
+.tabbrowser-tab {
+    /* Remove padding between tabs */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    /* Separator line style */
+    border-right: 1px dotted white !important;
 }
 
-/* Incognito */
-#main-window[privatebrowsingmode="temporary"] #nav-bar {
-    background-color: hsl(262, 100%, 75%)!important;
+/* Make tab overflow arrows behave */
+#scrollbutton-up, #scrollbutton-down {
+    outline: 1px dotted white !important;
+    padding: 0px 2px !important;
 }
