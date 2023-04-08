@@ -19,7 +19,7 @@ Xft.rgba:       rgb
 
 
 ! {{{ Colors
-*background: rgb:ff/ff/d7
+*background: rgb:ff/ff/ea
 *foreground: black
 
 *color0:  black
