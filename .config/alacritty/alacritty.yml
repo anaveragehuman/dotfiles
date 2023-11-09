@@ -2,6 +2,9 @@ window:
   dynamic_padding: true
   dynamic_title: true
 
+scrolling:
+  history: 100000
+
 font:
   normal:
     family: IBM Plex Mono
