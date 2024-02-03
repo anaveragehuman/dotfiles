@@ -1,0 +1,47 @@
+live_config_reload = false
+
+[bell]
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black   = "#666666"
+blue    = "#0451a5"
+cyan    = "#0598bc"
+green   = "#14ce14"
+magenta = "#bc05bc"
+red     = "#cd3131"
+white   = "#ffffff"
+yellow  = "#b5ba00"
+
+[colors.normal]
+black   = "#000000"
+blue    = "#0451a5"
+cyan    = "#0598bc"
+green   = "#00bc00"
+magenta = "#cd00cd"
+red     = "#cd0000"
+white   = "#e5e5e5"
+yellow  = "#949800"
+
+[colors.primary]
+background = "#ffffea"
+foreground = "#000000"
+
+[debug]
+render_timer = false
+
+[font]
+size = 7.0
+
+[font.normal]
+family = "IBM Plex Mono"
+
+[scrolling]
+history = 100000
+
+[window]
+dynamic_padding = true
+dynamic_title = true
