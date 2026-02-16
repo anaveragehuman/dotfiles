@@ -1,4 +1,3 @@
-live_config_reload = false
 
 [bell]
 duration = 0
@@ -30,6 +29,16 @@ yellow  = "#949800"
 background = "#ffffea"
 foreground = "#000000"
 
+[colors.search.focused_match]
+background = "#a8ac94"
+
+[colors.search.matches]
+background = "#fbcba3"
+
+[colors.selection]
+text = "CellForeground"
+background = "#eeee9e"
+
 [debug]
 render_timer = false
 
@@ -45,3 +54,16 @@ history = 100000
 [window]
 dynamic_padding = true
 dynamic_title = true
+resize_increments = true
+option_as_alt = "Both"
+
+[window.padding]
+x = 1
+y = 1
+
+[window.dimensions]
+columns = 92
+lines = 30
+
+[general]
+live_config_reload = true
