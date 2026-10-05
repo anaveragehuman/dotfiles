@@ -53,6 +53,7 @@ end
 -- {{{ Variable definitions
 beautiful.init(gears.filesystem.get_configuration_dir() .. "/theme/theme.lua")
 
+terminal = "alacritty"
 
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- To change it, use xmodmap or other tools to remap Mod4 to another key.
@@ -94,9 +95,13 @@ end
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("%a %F %R")
+month_calendar = awful.widget.calendar_popup.month{
+    start_sunday = true,
+}
+month_calendar:attach(mytextclock)
 
 batterywidget = awful.widget.watch('acpi', 30, function(widget, stdout)
-    widget:set_text(stdout:gsub('[^,]+, ', '', 1))
+    widget:set_text(stdout:match(', (.*)'))
 end)
 
 -- Create a wibox for each screen and add it
@@ -188,12 +193,10 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            spacing = 20,
             wibox.widget.systray(),
-            wibox.widget.textbox('  |  '),
-            mytextclock,
-            wibox.widget.textbox('  |  '),
             batterywidget,
-            wibox.widget.textbox('  |  '),
+            mytextclock,
             s.mylayoutbox,
         },
     }
