@@ -44,7 +44,7 @@ Xft.rgba:       rgb
 xterm*utf8: 1
 
 xterm*renderFont:   true
-xterm*faceName:     Liberation Mono
+xterm*faceName:     IBM Plex Mono
 xterm*faceSize:     7
 
 xterm*termName:         xterm-256color
@@ -66,9 +66,6 @@ xterm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT
 xterm*bellIsUrgent: true
 
 xterm*borderWidth: 0
-
-! Widen line spaces (range is 0.9 - 1.5)
-xterm*scaleHeight: 1.01
 
 ! Easier path selection (links and filesystem)
 xterm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
