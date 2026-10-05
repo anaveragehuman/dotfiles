@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -19,10 +20,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     unset f
 fi
 
-eval "$(dbus-launch --sh-syntax --exit-with-session)"
 
-# Swap Esc and Caps Lock
-setxkbmap -option caps:swapescape
+# Caps Lock is Left Control
+setxkbmap -option ctrl:nocaps
 
 # Gotta go fast
 xset r rate 180 80
@@ -33,17 +33,18 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 # Fixes https://github.com/ValveSoftware/steam-for-linux/issues/1025
 export STEAM_FRAME_FORCE_CLOSE=1
 
-# Required for physlock
-sessreg -a -l tty7 "$USER"
+
+xrandr --dpi 157
 
 # Start window manager
-picom --experimental-backends -b &
+picom -b &
 conky &
 redshift &
-awesome
+while true; do xsetroot -name "  $(acpi | cut -d, -f2-)     $(date +'%a %F %R') "; sleep 30; done &
+#dbus-launch --sh-syntax --exit-with-session awesome
+(sleep 5; wmname LG3D)
+exec ssh-agent dwm
 
 ## Fallback
 #xterm -geometry 80x50+494+51 &
 #exec xterm -geometry 80x30+0+0 -name login
-
-sessreg -d -l tty7 "$USER"
