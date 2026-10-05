@@ -1,0 +1,13 @@
+configuration {
+	modi: "drun";
+	width: 50;
+	lines: 20;
+	columns: 1;
+	show-icons: false;
+	disable-history: true;
+	auto-select: true;
+	matching: "fuzzy";
+	separator-style: "none";
+	scroll-method: 1;
+	kb-screenshot: "";
+}
